@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class abstract="true"
+     name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDifferee" table="EDN_DEMANDE_DIFFEREE">
+        <id name="id">
+            <column name="ID" scale="0"/>
+            <generator class="sequence">
+                <param name="sequence">EDN_DEMANDE_DIFFEREE_SEQ</param>
+            </generator>
+        </id>
+        <discriminator column="DISCRIMINATOR" force="false" insert="true"
+         length="50" not-null="true"/>
+        <property column="CODE_ETAT" generated="never" lazy="false"
+         name="codeEtat" not-null="true" type="string"/>
+        <property column="PRIORITE" generated="never" lazy="false"
+         name="priorite" not-null="true" type="integer"/>
+        <property column="DATE_EDITION" generated="never" lazy="false"
+         name="dateEdition" not-null="true" type="java.util.Date"/>
+        <property column="CODE_MODE_IMPRESSION" generated="never" lazy="false"
+         name="codeModeImpression" type="string"/>
+        <property column="NOMBRE_COPIES" generated="never" lazy="false"
+         name="nbCopies" type="java.lang.Integer"/>
+        <!-- instance du serveur jboss en charge de l'édition -->
+        <property column="INSTANCE_SERVER" generated="never" lazy="false"
+         name="instanceServer" type="string"/>
+         <property column="NOMBRE_RETRY" generated="never" lazy="false"
+         name="nombreRetry" type="java.lang.Integer"/>
+        <property column="EDITION_ARCHIMED" generated="never" lazy="false"
+         name="editionArchimed" type="boolean"/>
+         <property column="EXPORT_CSV" generated="never" lazy="false"
+         name="exportCsv" type="boolean"/>
+        <!-- edition type -->
+        <many-to-one
+         class="fr.gouv.justice.cassiopee.invariant.edition.model.EditionType"
+         name="editionType" outer-join="false">
+         <column name="CODE_EDITION_TYPE" not-null="true"/>
+        </many-to-one>
+        <many-to-one
+         class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne"
+         column="ACTEUR_INTERNE_ID" name="acteurInterne" outer-join="false"/>
+        <many-to-one
+         class="fr.gouv.justice.cassiopee.administration.structure.model.Service"
+         column="SERVICE_ID" name="service" outer-join="false"/>
+        <many-to-one name="envoiMail" 
+            outer-join="false" column="ENVOI_MAIL_ID" 
+            class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.EnvoiMail"/>
+        
+        <subclass abstract="true"
+         name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeAvecDestinataire"
+         select-before-update="false">
+            <property name="codeTypeDestinataire" column="DEST_EDI_TYPE_DESTINATAIRE"
+                generated="never" lazy="false" length="3" type="string"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne"
+             name="destinatairePersonne" outer-join="false" column="DEST_EDI_PERSONNE_ID"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.referentiel.structure.model.ElementStructure"
+             name="destinataireElementStructure" outer-join="false" column="DEST_EDI_CODE_ELEMENT_STRUCTUR"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.administration.structure.model.Service"
+             name="destinataireService" outer-join="false" column="DEST_EDI_SERVICE_ID"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.administration.acteur.externe.model.PersonneQualifiee"
+             name="destinatairePersonneQualifiee" outer-join="false" column="DEST_EDI_PERSONNE_QUAL_ID"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.invariant.personne.model.AvocatPersonneAffaire"
+             name="destinataireAvocatPersonneAffaire" outer-join="false" column="DEST_EDI_AVOCAT_ID"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.invariant.personne.model.Interprete"
+             name="destinataireInterprete" outer-join="false" column="DEST_EDI_INTERPRETE_ID"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne"
+             name="destinataireActeurInterne" outer-join="false" column="DEST_EDI_ACTEUR_INTERNE_ID"/>
+            <property column="CRITERES_PARAMS" generated="never"
+                 lazy="false" name="criteres" type="string"/>
+            <subclass discriminator-value="AVEC_EVENEMENT"
+             name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeAvecEvenement"
+             select-before-update="false">
+                <many-to-one
+                 class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet"
+                 column="IDENTIFICATON_PARQUET_ID" name="identificationParquet" outer-join="false"/>
+                <many-to-one
+                 class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+                 column="EVENEMENT_ID" name="evenement" outer-join="false"/>
+                <many-to-one
+                 class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne"
+                 column="PERSONNE_ID" name="personne" outer-join="false"/>
+                <many-to-one
+                 class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.PersonneEvenement"
+                 column="PERSONNE_EVENEMENT_ID" name="personneEvenement" outer-join="false"/>
+            </subclass>
+         
+            <subclass discriminator-value="SANS_EVENEMENT"
+             name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeSansEvenement"
+             select-before-update="false">
+                <property column="INTERVALLE_DATE_DEBUT" generated="never"
+                 lazy="false" name="intervalleDateDebut" type="java.util.Date"/>
+                <property column="INTERVALLE_DATE_FIN" generated="never" lazy="false"
+                 name="intervalleDateFin" type="java.util.Date"/>
+                <many-to-one
+                 class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet"
+                 column="IDENTIFICATON_PARQUET_ID" name="identificationParquet" outer-join="false"/>
+                <many-to-one
+                 class="fr.gouv.justice.cassiopee.service.audience.model.Audience"
+                 column="AUDIENCE_ID" name="audience" outer-join="false"/>
+                
+                <subclass discriminator-value="RAPPEL_ET_RELANCE"
+                 name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeRappelEtRelance"
+                 select-before-update="false">
+                    <many-to-one
+                     class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+                     column="EVENEMENT_ID" name="evenement" outer-join="false"/>
+                </subclass>
+            </subclass>
+        </subclass>
+        
+        <subclass discriminator-value="PIECE_EXECUTION"
+         name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereePieceExecution"
+         select-before-update="false">
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet"
+             column="IDENTIFICATON_PARQUET_ID" name="identificationParquet" outer-join="false"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+             column="EVENEMENT_ID" name="evenement" outer-join="false"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne"
+             column="PERSONNE_ID" name="personne" outer-join="false"/>
+            <many-to-one
+             class="fr.gouv.justice.cassiopee.invariant.peineoumesure.model.PeineOuMesure"
+             column="PEINE_OU_MESURE_ID" name="peineOuMesure" outer-join="false"/>
+        </subclass>
+    
+        <subclass discriminator-value="LISTE_ECRAN"
+         name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeListesEcrans"
+         select-before-update="false">
+            <property column="INTERVALLE_DATE_DEBUT" generated="never"
+                 lazy="false" name="intervalleDateDebut" type="java.util.Date"/>
+            <property column="INTERVALLE_DATE_FIN" generated="never" lazy="false"
+                 name="intervalleDateFin" type="java.util.Date"/>            
+            <property column="AUDS_NBRE_ECHELLE" generated="never"
+                 lazy="false" name="nbreEchelle" type="integer"/>
+            <property column="AUDS_LIBELLE_ECHELLE" generated="never"
+                 lazy="false" name="libelleEchelle" type="string"/>
+            <property column="AUDS_CODE_SPECIALITE" generated="never"
+                 lazy="false" name="codeSpecialite" type="string"/>
+            <property column="AUDS_TYPE_FORMATION" generated="never"
+                 lazy="false" name="typeFormation" type="string"/>
+            <property name="audienceNonPleine" type="java.lang.Boolean">
+                <column name="AUDS_NON_PLEINE" precision="1" scale="0" />
+            </property>
+            <property column="AUDS_CODE_JURIDICTION" generated="never"
+                 lazy="false" name="codeJuridiction" type="string"/>
+            <property column="AUDS_ID_CHAMBRE" generated="never"
+                 lazy="false" name="listServiceId" type="string"/>  
+            <property column="CRITERES_PARAMS" generated="never"
+                 lazy="false" name="criteres" type="string"/>
+            <property name="resultatsRecherche" column="RESULTATS_RECHERCHE"  type="text" lazy="true" />
+        </subclass>
+        
+        <subclass discriminator-value="EXPORT_CSV"
+         name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeExportCsv"
+         select-before-update="false">
+             <many-to-one
+                 class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet"
+                 column="IDENTIFICATON_PARQUET_ID" name="identificationParquet" outer-join="false"/>
+            <property column="CRITERES_PARAMS" generated="never" 
+                lazy="false" name="criteres" type="string"/>
+            <property name="resultatsRecherche" column="RESULTATS_RECHERCHE"  type="text" lazy="true" />    
+        </subclass>
+        
+        <subclass discriminator-value="EXTRAIT"
+         name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDiffereeExtraitInformation"
+         select-before-update="false">
+            <many-to-one
+                 class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne"
+                 column="PERSONNE_ID" name="personne" outer-join="false"/>
+                 <property column="CRITERES_PARAMS" generated="never" 
+                lazy="false" name="criteres" type="string"/>
+        </subclass>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass discriminator-value="CIVILE_PAR_OU_CITA" 
+              name    = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffaireCivileParquet" 
+              extends = "fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"  
+              lazy="false">
+    </subclass>
+</hibernate-mapping>

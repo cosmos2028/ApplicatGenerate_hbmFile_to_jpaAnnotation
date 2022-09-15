@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <class
+        name="fr.gouv.justice.cassiopee.processus.tdr.model.MesureIncorrecte"
+        table="TDR_MESURE_INCORRECTE">
+        <id name="id" type="java.lang.Long">
+            <column name="MESURE_INCORRECTE_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">TDR_MESURE_INCORRECTE_SEQ</param>
+            </generator>
+        </id>
+
+        <many-to-one name="personneEvenement" outer-join="false"
+            class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.PersonneEvenement">
+            <column name="PERSONNE_EVENEMENT_ID" scale="0" />
+        </many-to-one>
+
+        <property name="codeMesure" type="java.lang.Long">
+            <column name="CODE_MESURE" not-null="true" />
+        </property>
+
+        <property name="commentaire" type="text">
+            <column name="COMMENTAIRE" />
+        </property>
+
+    </class>
+</hibernate-mapping>

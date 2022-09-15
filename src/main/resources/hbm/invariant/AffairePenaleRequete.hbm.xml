@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass discriminator-value="PENALE_REQ"
+              name    = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffairePenaleRequete"
+              extends = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffairePenale"
+              lazy    = "false">
+        
+        <many-to-one name="civilite"
+            class="fr.gouv.justice.cassiopee.referentiel.codification.model.Civilite">
+            <column name="PENALE_REQ_CODE_CIVILITE" />
+        </many-to-one>
+                
+        <property name="nomNaissance" type="java.lang.String">
+            <column name="PENALE_REQ_NOM_NAISSANCE" length="80" />
+        </property>
+        
+        <property name="nomUsage" type="java.lang.String">
+            <column name="PENALE_REQ_NOM_USAGE" length="80" />
+        </property>
+        
+        <property name="prenom" type="java.lang.String">
+            <column name="PENALE_REQ_PRENOM" length="25" />
+        </property>
+               
+        <component
+            name="dateNaissance" 
+            class="fr.gouv.justice.cassiopee.common.util.DateIncomplete">
+            
+            <property
+                name="averageDate"
+                type="date">
+                <column
+                    name="PENALE_REQ_DATE_NAISSANCE"
+                    length="7" />
+            </property>
+            <property
+                name="precision"
+                type="int">
+                <column
+                    name="PENALE_REQ_DATE_NAIS_PRECIS"
+                    precision="1"
+                    scale="0" />
+            </property>
+        </component>
+        
+        <property name="flagMineur" type="java.lang.Boolean">
+            <column name="PENALE_REQ_MINEUR" precision="1"
+                    scale="0" />
+        </property>
+
+        <many-to-one
+            name="paysNaissance"
+            class="fr.gouv.justice.cassiopee.referentiel.territoire.model.Pays">
+            <column name="PENALE_REQ_CODE_PAYS_NAISSANCE" />
+        </many-to-one>
+
+        <many-to-one name="communeNaissance"
+                     class="fr.gouv.justice.cassiopee.referentiel.territoire.model.Commune"
+                     outer-join="false">
+            <column name="PENALE_REQ_CODE_COMMUNE_NAISSA" />
+        </many-to-one> 
+
+        <property name="libelleCommuneNaissanceEtrangere" type="string">
+            <column name="PENALE_REQ_LIB_COMMUNE_NAIS_ET" length="45" />
+        </property>
+                
+        <property name="codeRaisonSociale" type="java.lang.String">
+            <column name="PENALE_REQ_CODE_RAISON_SOCIALE" length="120" />
+        </property>
+                
+        <property name="sirenSiret" type="string">
+            <column name="PENALE_REQ_SIREN_SIRET" length="14" />
+        </property>
+
+        <property name="flagSeDisantX" type="java.lang.Boolean">
+            <column name="PENALE_REQ_X_SE_DISANT" precision="1" scale="0" />
+        </property>        
+                            
+    </subclass>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_CODE_TGI_TP"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.CodeTgiTP" lazy="false">
+        
+        <!-- PRIMARY KEY -->
+        <id name="codeTgi" column="CODE_TGI" type="java.lang.String"></id>
+        
+        <property name="codeTP" type="java.lang.Integer">
+            <column name="CODE_TP" length="4" />
+        </property>
+        
+        <property name="numeroCodique" type="java.lang.Integer">
+            <column name="NUMERO_CODIQUE" length="6" />
+        </property>
+    </class>
+</hibernate-mapping>

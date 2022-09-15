@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.Flux"
+        table="ECH_PNGN_FLUX_ENTRANT" lazy="false">
+        <id name="demandeId" type="java.lang.Long">
+            <column name="DEMANDE_ID" scale="0" />
+        </id>
+        <property name="nomFlux" type="string">
+            <column name="NOM_FLUX" sql-type="varchar(500)" />
+        </property>
+
+        <property name="fluxEntrant" type="text">
+            <column name="FLUX_ENTRANT" sql-type="clob" />
+        </property>
+        
+        <property name="fluxEnrichi" type="text">
+            <column name="FLUX_ENRICHI" sql-type="clob" />
+        </property>
+        
+        <property name="fluxIntegre" type="text">
+            <column name="FLUX_INTEGRE" sql-type="clob" />
+        </property>
+
+        <property name="dateEntree" type="java.util.Date">
+            <column name="DATE_ENTREE" sql-type="date" />
+        </property>
+    
+        <property name="dateTraitement" type="java.util.Date">
+            <column name="DATE_TRAITEMENT" sql-type="date" />
+        </property>
+
+
+        <property name="idJustice" type="string">
+            <column name="ID_JUSTICE" length="11" />
+        </property>
+
+
+        <property name="institutionOrigine" type="java.lang.Integer">
+            <column name="INSTITUTION_ORIGINE" sql-type="number(3)" />
+        </property>
+
+        <property name="codeUniteRedactrice" type="string">
+            <column name="CODE_UNITE_REDACTRICE" length="20" />
+        </property>
+        <property name="numeroProcedure" type="string">
+            <column name="NUMERO_PROCEDURE" length="20" />
+        </property>
+        <property name="anneeProcedure" type="string">
+            <column name="ANNEE_PROCEDURE" length="20" />
+        </property>
+        <property name="nataaf" type="string">
+            <column name="NATAAF" length="20" />
+        </property>
+
+        <property name="etatTechnique" type="java.lang.Integer">
+            <column name="ETAT_TECHNIQUE" sql-type="number(3)" />
+        </property>
+        <property name="etatFonctionnel" type="java.lang.Integer">
+            <column name="ETAT_FONCTIONNEL" sql-type="number(3)" />
+        </property>
+        <property name="codeErreur" type="java.lang.Integer">
+            <column name="CODE_ERREUR" sql-type="number(3)" />
+        </property>
+
+        <property name="commentaire" type="string">
+            <column name="COMMENTAIRE" length="500" />
+        </property>
+
+        <property name="envoiAr" type="boolean">
+            <column name="ENVOI_AR" length="1" />
+        </property>
+
+        <property name="aRelancer" type="boolean">
+            <column name="A_RELANCER" length="1" />
+        </property>
+
+        <property name="dateCloturePv" type="string">
+            <column name="DATE_CLOTURE_PV" length="20" />
+        </property>
+
+        <property name="premierePersonne" type="string">
+            <column name="PREMIERE_PERSONNE" length="200" />
+        </property>
+
+        <property name="premiereNatinf" type="string">
+            <column name="PREMIER_NATINF" length="20" />
+        </property>
+
+        <property name="premiereNatinfMetier" type="string">
+            <column name="PREMIER_NATINF_METIER" length="20" />
+        </property>
+
+        <property name="NbCouplePerInf" type="java.lang.Integer">
+            <column name="NBR_COUPLE_PERS_INF" sql-type="number(5)" />
+        </property>
+        <property name="codeTgi" type="string">
+            <column name="CODE_TGI" sql-type="10" />
+        </property>
+        <property name="acteurInterneLock" type="java.lang.Long">
+            <column name="ACTEUR_INTERNE_LOCK" sql-type="number()" />
+        </property>        
+        <property name="dateLock" type="java.util.Date">
+            <column name="DATE_LOCK" sql-type="date" />
+        </property>                
+        <property name="importAuto" type="boolean">
+            <column name="IMPORT_AUTO" length="1" />
+        </property>
+        <property name="traitementCSS" type="string">
+            <column name="TRAITEMENT_CSS" length="5" />
+        </property>
+        <property name="forfaitisation" type="boolean">
+            <column name="FORFAITISATION" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

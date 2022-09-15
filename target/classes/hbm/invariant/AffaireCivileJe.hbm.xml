@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass discriminator-value="CIVILE_JE"
+              name    = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffaireCivileJe"
+              extends = "fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+              lazy    = "false">
+
+        <many-to-one name="sousTypeAffaire"
+                 class="fr.gouv.justice.cassiopee.invariant.affaire.model.SousTypeAffaire"
+                 outer-join="false">
+            <column name="CIVILE_SOUS_TYPE_AFFAIRE" />
+        </many-to-one>
+    </subclass>
+</hibernate-mapping>

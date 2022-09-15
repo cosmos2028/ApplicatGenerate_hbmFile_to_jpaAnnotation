@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet" table="PQT_IDENTIFICATION_PARQUET">
+        
+        <id name="id" type="java.lang.Long">
+            <column name="IDENTIFICATON_PARQUET_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">PQT_IDENTIFICATION_PARQUET_SEQ</param>
+            </generator>
+        </id>
+        
+        <!--  PROPERTY -->
+        <property name="numeroParquet" type="java.lang.String">
+            <column name="NUMERO_PARQUET" length="13" not-null="true" unique="true" />
+        </property>
+        
+        <property name="numeroParquetAbsorbe" type="java.lang.String">
+            <column name="NUMERO_PARQUET_ABSORBE" length="13" unique="true" />
+        </property>
+        
+        <many-to-one name="lienTgiAbsorbe"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.LienTgiAbsorbe"
+            outer-join="false">
+            <column name="ELEMENTS_MIGRATION_ID" not-null="false" scale="0"/>
+        </many-to-one>
+
+        <property name="ancienNumeroParquet" type="java.lang.String">
+            <column name="ANCIEN_NUMERO_PARQUET" length="20" />
+        </property>
+                
+        <property name="dateArriveeParquet" type="java.util.Date">
+            <column name="DATE_ARRIVEE_PARQUET" length="7" />
+        </property>
+        
+        <property name="dateFinInstruction" type="java.util.Date">
+            <column name="DATE_FIN_INSTRUCTION" length="7" />
+        </property>
+        
+        <property name="dateEnregistrement" type="java.util.Date">
+            <column name="DATE_ENREGISTREMENT" length="7" />
+        </property>
+        
+        <property name="origineCreation" type="java.lang.String">
+            <column name="ORIGINE_CREATION" length="1" />
+        </property>
+        
+        
+        <property name="indicStock" type="java.lang.Boolean">
+            <column name="INDIC_STOCK" precision="1" scale="0" />
+        </property>
+
+        <property name="indicFinInstruction" type="java.lang.Boolean">
+            <column name="FIN_INSTRUCTION" precision="1" scale="0" />
+        </property>        
+        
+        <property name="identifiantJustice" type="java.lang.String">
+            <column name="IDENTIFIANT_JUSTICE" precision="1" scale="0" />
+        </property>     
+        
+         <property name="importerViaFlux" type="java.lang.Boolean">
+            <column name="IMPORTE_VIA_FLUX" precision="1" scale="0" />
+        </property>       
+        
+        <many-to-one name="serviceAPrevenir"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.Service">
+            <column name="SERVICE_ID_A_PREVENIR" length="19" />
+        </many-to-one>
+        
+        <property name="idjConnuTAJ" type="java.lang.Boolean">
+            <column name="IDJ_CONNU_TAJ" precision="1" scale="0" />
+        </property>          
+        
+        <!-- COMPONENT  -->
+        
+        <component name="doyenComplements" class="fr.gouv.justice.cassiopee.processus.parquet.model.DoyenComplements">
+            
+            <property name="numeroCabinetDoyen" type="java.lang.String">
+                <column name="DOYEN_NUMERO_CABINET" length="10"  />
+            </property>
+            
+            <property name="numeroCabinetDoyenLongForSearchAndDisplay" type="java.lang.String">
+                <column name="DOYEN_NUMERO_CABINET_LONG" length="32"  />
+            </property>
+                        
+            <property name="dateArrivee" type="java.util.Date">
+                <column name="DOYEN_DATE_ARRIVEE" length="7" />
+            </property>
+            
+            <many-to-one name="service" class="fr.gouv.justice.cassiopee.administration.structure.model.Service" outer-join = "false">
+             <column name="DOYEN_SERVICE_ID" length="19" />
+            </many-to-one>
+            
+        </component>
+        
+        <component name="cabinet" class="fr.gouv.justice.cassiopee.processus.parquet.model.Cabinet">
+            
+            <property name="numeroCabinet" type="java.lang.String">
+                <column name="CABINET_NUMERO_CABINET" length="10"  />
+            </property>
+
+            <property name="numeroCabinetLongForSearchAndDisplay" type="java.lang.String">
+                <column name="CABINET_NUMERO_CABINET_LONG" length="32"  />
+            </property>
+                        
+            <property name="dateArrivee" type="java.util.Date">
+                <column name="CABINET_DATE_ARRIVEE" length="7" />
+            </property>
+            
+            <many-to-one name="service" class="fr.gouv.justice.cassiopee.administration.structure.model.Service" outer-join = "false">
+             <column name="CABINET_SERVICE_ID" length="19" />
+            </many-to-one>
+            
+        </component>       
+        
+        <!-- ASSOCIATION -->
+        
+         <many-to-one name="tgi" class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi" outer-join="false">
+            <column name="CODE_TGI" scale="0" />
+        </many-to-one>
+        
+                                                      
+        <many-to-one name="serviceQuiOriente" class="fr.gouv.justice.cassiopee.administration.structure.model.Service" outer-join="false">
+            <column name="SERVICE_ID_ORIENTE" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="parquetierEnCharge" class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne" outer-join="false">
+            <column name="PARQUETIER_EN_CHARGE_ID" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="natureAffaire1" class="fr.gouv.justice.cassiopee.referentiel.infraction.codification.model.NatureAffaire" outer-join="false">
+            <column name="CODE_NAT_AFF_1" not-null="true" />
+        </many-to-one>
+        
+         <many-to-one name="natureAffaire2" class="fr.gouv.justice.cassiopee.referentiel.infraction.codification.model.NatureAffaire" outer-join="false">                                                   
+            <column name="CODE_NAT_AFF_2" />
+        </many-to-one>
+        
+        <many-to-one name="natureAffaire3" class="fr.gouv.justice.cassiopee.referentiel.infraction.codification.model.NatureAffaire" outer-join="false">
+            <column name="CODE_NAT_AFF_3" />
+        </many-to-one>
+        
+        <many-to-one name="affaire" class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire" outer-join="false">
+            <column name="AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>       
+        
+        <many-to-one name="etatIdentificationParquet" class="fr.gouv.justice.cassiopee.processus.parquet.model.EtatIdentParquet" outer-join="false"
+            not-null="true">
+            <column name="CODE_ETAT_IDENT_PARQUET" />
+        </many-to-one>
+       
+         
+        <many-to-one name="evenementActeDeSaisine" class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement" outer-join="false">
+            <column name="ACTE_SAISINE_EVENEMENT_ID" scale="0" />
+        </many-to-one>
+         
+        <many-to-one name="evenementActeDeSaisineInitial" class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement" outer-join="false">
+            <column name="ACTE_SAISINE_INITIAL" scale="0" />
+        </many-to-one>
+        
+        <many-to-one column="SERVICE_EN_CHARGE_ID" name="serviceEnCharge"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.Service" lazy="false"/>
+         
+                 
+        <!-- ASSOCIATION SET -->
+        <set name="localisationDossierPaps" inverse="false" cascade="none" lazy="true">
+            <key>
+                <column name="IDENTIFICATON_PARQUET_ID" scale="0" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.processus.parquet.model.LocalisationDossierPap" />
+        </set>
+        <set name="affaireConfidentielles" inverse="true" cascade="all-delete-orphan" lazy="true">
+            <key>
+                <column name="IDENTIFICATON_PARQUET_ID" scale="0"/>
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.processus.parquet.model.UtilisateurAffaireCachee" />
+        </set>
+        
+        <set name="transfertMultiSite" inverse="true" lazy="true">
+            <key>
+                <column name="IDENTIFICATON_PARQUET_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.traitementtransverse.model.TransfertMultiSite" />
+        </set>
+        
+         <set name="listeDateFinInstruction" cascade="all-delete-orphan" inverse="true" lazy="true">
+            <key>
+                <column name="IDENTIFICATON_PARQUET_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.parquet.model.HistorisationFinInstruction" />
+        </set>
+        <many-to-one column="CODE_CONSTITUTION_STOCK" name="typeConstitutionStock"
+            class="fr.gouv.justice.cassiopee.invariant.scelle.model.TypeConstitutionStock" lazy="false"/>
+            
+        <property name="idjOrigine" type="java.lang.String">
+            <column name="IDENTIFIANT_JUSTICE_ORIGINE" />
+        </property>
+            
+    </class>
+</hibernate-mapping>

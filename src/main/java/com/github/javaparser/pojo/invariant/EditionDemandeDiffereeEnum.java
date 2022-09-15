@@ -1,0 +1,9 @@
+package fr.gouv.justice.cassiopee.invariant.edition.model;
+
+/**
+ * énumération des demandes d'édition différée
+ */
+public enum EditionDemandeDiffereeEnum {
+
+    EDITION_DEMANDE_DIFFEREE_SANS_EVENEMENT, EDITION_DEMANDE_DIFFEREE_AVEC_EVENEMENT, EDITION_DEMANDE_DIFFEREE_RAPPEL_ET_RELANCE, EDITION_DEMANDE_DIFFEREE_PIECE_EXECUTION, EDITION_DEMANDE_DIFFEREE_LISTES_ECRANS, EDITION_DEMANDE_DIFFEREE_EXPORT_CSV
+}

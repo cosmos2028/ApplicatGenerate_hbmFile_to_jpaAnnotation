@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass discriminator-value="IMPORT" 
+              name   = "fr.gouv.justice.cassiopee.processus.ech.model.DemandeImport" 
+              extends= "fr.gouv.justice.cassiopee.processus.ech.model.Demande"
+              lazy   = "false">   
+              
+    </subclass>
+</hibernate-mapping>

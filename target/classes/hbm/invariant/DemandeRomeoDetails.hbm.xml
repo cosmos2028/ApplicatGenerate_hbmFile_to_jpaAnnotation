@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_DEMANDE_ROMEO_DETAILS"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.DemandeRomeoDetails" lazy="false">
+        
+        <id name="demandeId" type="java.lang.Long">
+            <column name="DEMANDE_ID" />
+        </id>
+        
+        <one-to-one name="demande" class="fr.gouv.justice.cassiopee.processus.ech.model.Demande"
+            constrained="true"></one-to-one>
+        
+        <many-to-one name="evenementType" lazy="false"
+            class="fr.gouv.justice.cassiopee.referentiel.evenement.model.EvenementType">
+            <column name="CODE_EVENEMENT_TYPE" />
+        </many-to-one>
+        
+        <property name="dateRendezVous" type="java.util.Date">
+            <column name="DATE_RDV" not-null="true" />
+        </property>
+        
+        <property name="heureRendezVous" type="string">
+            <column name="HEURE_RDV" not-null="true" />
+        </property>
+        
+        <property name="lieu" type="string">
+            <column name="LIEU" not-null="true" />
+        </property>
+        
+        <many-to-one name="elementStructure" lazy="false"
+            class="fr.gouv.justice.cassiopee.referentiel.structure.model.ElementStructure">
+            <column name="CODE_ELEMENT_STRUCTURE" />
+        </many-to-one>
+        
+        <property name="dateAnnulation" type="java.util.Date">
+            <column name="DATE_ANNULATION" not-null="false" />
+        </property>
+
+        
+    </class>
+</hibernate-mapping>

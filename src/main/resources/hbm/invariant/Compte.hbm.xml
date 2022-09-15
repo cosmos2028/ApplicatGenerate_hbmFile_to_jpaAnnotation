@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class
+        name="fr.gouv.justice.cassiopee.invariant.affaire.model.Compte"
+        table="AFF_COMPTE">
+
+        <id name="id" type="java.lang.Long">
+            <column name="COMPTE_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">AFF_COMPTE_SEQ</param>
+            </generator>
+        </id>
+
+
+        <!-- PROPERTY -->
+        <property name="rang" type="integer">
+            <column name="RANG" precision="6" scale="0" />
+        </property>
+
+        <property name="numeroCompte" type="string">
+            <column name="NUMERO_COMPTE" length="11" />
+        </property>
+
+        <property name="codeGuichet" type="java.lang.String">
+            <column name="CODE_GUICHET" length="32" />
+        </property>
+
+        <property name="agenceNom" type="java.lang.String">
+            <column name="AGENCE_NOM" length="64" />
+        </property>
+
+        <property name="agenceCodePostal" type="java.lang.String">
+            <column name="AGENCE_CODE_POSTAL" length="5" />
+        </property>
+
+        <property name="commentaire" type="java.lang.String">
+            <column name="COMMENTAIRE" length="300" />
+        </property>
+
+        <property name="libelleTitulaire" type="java.lang.String">
+            <column name="LIBELLE_TITULAIRE" length="32" />
+        </property>
+
+        <property name="libelleTitulaireMajuscule" type="java.lang.String">
+            <column name="LIBELLE_TITULAIRE_MAJ" length="32" />
+        </property>
+
+        <!-- TODO A VERIFIER -->
+        <property name="titreVoleCommentaire" type="java.lang.String">
+            <column name="TITRE_VOLE_COMMENTAIRE" />
+        </property>
+
+        <!-- ASSOCIATION  -->
+
+        <many-to-one name="affaire" outer-join="false"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+            <column name="AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>
+
+        <many-to-one name="etablissementBancaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.EtablissementBancaire"
+            outer-join="false">
+            <column name="CODE_BANQUE" />
+        </many-to-one>
+
+        <set name="cartesBancaires" inverse="true"
+            cascade="all,delete-orphan">
+            <key>
+                <column name="COMPTE_ID" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.CarteBancaire" />
+        </set>
+
+        <set name="titresDePaiement" inverse="true" order-by="DATE_EMISSION DESC" cascade="none">
+            <key>
+                <column name="COMPTE_ID" scale="0" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.invariant.personne.model.TitrePaiement" />
+        </set>
+        <set name="titulaires" inverse="true" cascade="all,delete-orphan">
+            <key>
+                <column name="COMPTE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.personne.model.LienComptePersonne" />
+        </set>
+    </class>
+</hibernate-mapping>

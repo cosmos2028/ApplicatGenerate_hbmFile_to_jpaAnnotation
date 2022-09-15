@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class
+  name="fr.gouv.justice.cassiopee.invariant.affaire.model.AffaireLiee"
+  table="AFF_AFFAIRE_LIEE">
+  <id name="id" type="long">
+   <column name="ID_LIEN" scale="0" />
+   <generator class="sequence">
+    <param name="sequence">AFF_AFFAIRE_LIEE_SEQ</param>
+   </generator>
+  </id>
+  <many-to-one name="affaireDestination"
+   class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+   not-null="true">
+   <column name="ID_AFFAIRE_DESTINATION" scale="0" />
+  </many-to-one>
+  <many-to-one name="affaireOrigine"
+   class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+   not-null="false">
+   <column name="ID_AFFAIRE_ORIGINE" scale="0" />
+  </many-to-one>
+  <many-to-one name="tgiAffaireDistante"
+   class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi"
+   not-null="false">
+   <column name="CODE_TGI_AFFAIRE_LIEE" scale="0" />
+  </many-to-one>
+  <many-to-one name="tgiAffaireOrigineCourrierExt"
+   class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi"
+   not-null="false">
+   <column name="CODE_TGI_ORIGINE_COURRIER_EXT" scale="0" />
+  </many-to-one>
+  <property name="origineCreationAffaire" type="string" not-null="false">
+   <column name="ORIGINE_CREATION_AFFAIRE_DEST" precision="1" scale="0" />
+  </property>
+  <property name="numeroParquetOrigine" type="string"
+   not-null="false">
+   <column name="NUMERO_PARQUET_ORIGINE" precision="19" scale="0" />
+  </property>
+  <property name="numeroParquetDestination" type="string"
+   not-null="false">
+   <column name="NUMERO_PARQUET_DESTINATION" precision="19" scale="0" />
+  </property>
+  <property name="lienRequeteAJour" type="boolean" not-null="false">
+   <column name="LIEN_REQUETE_A_JOUR" precision="1" scale="0" />
+  </property>
+  <property name="existanceAffaireDansKcop" type="boolean" not-null="false">
+   <column name="EXISTANCE_AFFAIRE_KCOP" precision="1" scale="0" />
+  </property>
+  <many-to-one name="tgiAffaireAccueil"
+   class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi"
+   not-null="false">
+   <column name="CODE_TGI_AFFAIRE_ACCUEIL" scale="0" />
+  </many-to-one>
+  <many-to-one name="tgiAffaireJointe"
+   class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi"
+   not-null="false">
+   <column name="CODE_TGI_AFFAIRE_JOINTE" scale="0" />
+  </many-to-one>
+ </class>
+</hibernate-mapping>

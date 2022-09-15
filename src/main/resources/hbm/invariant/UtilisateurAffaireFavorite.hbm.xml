@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.invariant.affaire.model.UtilisateurAffaireFavorite" table="AFF_UTILISATEUR_AFF_FAVORITE">
+        <composite-id name="id" class="fr.gouv.justice.cassiopee.invariant.affaire.model.UtilisateurAffaireFavoriteId">
+            <key-many-to-one name="affaire" lazy="false" class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+                <column name="AFFAIRE_ID " scale="0" not-null="true" />
+            </key-many-to-one>
+            <key-many-to-one name="acteurInterne" lazy="false" class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne">
+                <column name="UTILISATEUR_ID" scale="0" not-null="true"/>
+            </key-many-to-one>
+        </composite-id>
+    </class>
+</hibernate-mapping>

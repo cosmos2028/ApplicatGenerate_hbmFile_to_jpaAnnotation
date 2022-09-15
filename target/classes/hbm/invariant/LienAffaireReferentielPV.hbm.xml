@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class table="AFF_LIEN_AFFAIRE_PV" name="fr.gouv.justice.cassiopee.invariant.affaire.model.LienAffaireReferentielPV" abstract="true" lazy="false" discriminator-value="null">
+        <!-- PRIMARY KEY -->
+        <composite-id name="pk"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.LienAffaireReferentielPVPK">
+            <key-many-to-one name="affaire" lazy="false"
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+                <column name="AFFAIRE_ID" />
+            </key-many-to-one>
+            <key-many-to-one name="referentielPV" lazy="false"
+                class="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPV">
+                <column name="REFERENCE_PV_ID" />
+            </key-many-to-one>
+        </composite-id>
+
+        <property name="typeCreation" column="TYPE_CREATION">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">fr.gouv.justice.cassiopee.processus.ech.enumeration.LienAffaireReferentielPVTypeCreationEnum</param>
+            </type>
+        </property>
+
+        <property name="dateCreationLien" type="java.util.Date">
+            <column name="DATE_CREATION_LIEN" />
+        </property>
+        
+        <property name="idjDuPv" type="java.lang.String">
+            <column name="IDJ_DU_PV" length="11" />
+        </property>
+    </class>
+
+</hibernate-mapping>

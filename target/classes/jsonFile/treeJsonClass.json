@@ -1,0 +1,10 @@
+{
+  "Table": 
+  {
+    "name": "null",
+    "schema": "null",
+    "catalog": "null",
+    "uniqueConstraints": "null",
+    "indexes": "null"
+  }
+}

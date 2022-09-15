@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass discriminator-value="PENALE" 
+              name    = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffairePenaleGenerale" 
+              extends = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffairePenale"
+              lazy    = "false">
+
+       <property name="indicTtr" type="java.lang.Boolean">
+            <column name="PENALE_GENERALE_INDIC_TTR" precision="1" scale="0" />
+        </property>
+        
+        <property name="dateCreationPremierAuteur" type="date">
+            <column name="PENALE_GENERALE_DATE_AUTEUR" length="7"/>
+        </property>
+        
+        <property name="indicateurAuteurInconnu" type="java.lang.Integer">
+            <column name="PENALE_GENERALE_IND_AUT_INC"/>
+        </property>
+        
+    </subclass>
+</hibernate-mapping>

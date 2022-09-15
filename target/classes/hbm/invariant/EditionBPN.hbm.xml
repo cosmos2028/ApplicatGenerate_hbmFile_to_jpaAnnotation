@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!--  ID principal de la table, provenant de la table EDN_EDITION  -->
+	<class
+		name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionBPN" table="ECH_EDITION_BPN">
+		<id name="id" type="java.lang.Long"> 
+			<column name="EDITION_ID" />
+			<generator class="assigned" />
+		</id>
+
+		<!--  date de la demande  -->
+		<property name="dateDemande"
+			column="DATE_DEMANDE" type="java.util.Date">
+		</property>
+
+		<!--  date de traitement de la demande  -->
+		<property name="dateTraitement" column="DATE_TRAITEMENT"
+			type="java.util.Date">
+		</property>
+
+		<!--  etat du traitement de la demande  -->
+		<property name="etatTraitement"
+			column="ETAT_TRAITEMENT" type="java.lang.String"
+			length="255">
+		</property>
+
+		<!--  nombre de tentative d'envoi  -->
+		<property name="nombreRejeux"
+			column="NOMBRE_REJEUX" type="java.lang.Long">
+		</property>
+
+		<!--  flux xml de l'édition  -->
+		<property name="fluxXml"
+			column="FLUX_XML" type="java.lang.String">
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.HistoriqueIdentifiantJustice" table="ECH_HISTO_ID_JUSTICE" lazy="false">
+        
+        <composite-id>
+            <key-property name="affaireOrigineId" type="java.lang.Long" column="ID_AFFAIRE_ORIGINE"/>
+            <key-property name="affaireDestinationId" type="java.lang.Long" column="ID_AFFAIRE_DESTINATION"/>
+        </composite-id>
+        
+        <property name="idjOrigine" type="java.lang.String">
+            <column name="IDENTIFIANT_JUSTICE_ORIGINE" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

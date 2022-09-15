@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class
+        name="fr.gouv.justice.cassiopee.processus.ech.model.InfractionMetierTraitee"
+        table="ECH_INF_METIER_TRAITEES" lazy="false">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">ECH_INF_METIER_TRAITEES_SEQ</param>
+            </generator>
+        </id>
+        <property name="demandeId" type="java.lang.Long">
+            <column name="DEMANDE_ID"/>
+        </property>
+
+        <property name="infractionId" type="java.lang.Integer">
+            <column name="INFRACTION_ID"/>
+        </property>
+    </class>
+</hibernate-mapping>

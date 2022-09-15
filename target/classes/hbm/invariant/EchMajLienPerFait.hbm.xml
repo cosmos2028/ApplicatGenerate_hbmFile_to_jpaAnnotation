@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.EchMajLienPerFait" table="ECH_PNGN_MAJ_LIEN_PER_FAIT">
+        <id name="id" type="java.lang.Long">
+            <column name="ECH_MAJ_LIEN_PER_FAIT_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">ECH_MAJ_LIEN_PER_FAIT_SEQ</param>
+            </generator>
+        </id>               
+        <many-to-one name="fait" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.EchMajFait">
+            <column name="ECH_MAJ_FAIT_ID" scale="0"/>
+        </many-to-one>
+        <many-to-one name="auteur" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.EchMajAuteur">
+            <column name="ECH_MAJ_AUTEUR_ID" scale="0"/>
+        </many-to-one>                          
+        <property name="idRole" type="java.lang.String">
+            <column name="ID_ROLE" />
+        </property>
+    </class>
+</hibernate-mapping>

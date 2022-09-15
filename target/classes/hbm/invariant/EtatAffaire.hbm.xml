@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.invariant.affaire.model.EtatAffaire" table="AFF_ETAT_AFFAIRE" lazy="false">
+        
+        <id name="code" type="java.lang.String">
+            <column name="CODE" />
+            <generator class="assigned" />
+        </id>
+        
+        <property name="libelle" type="java.lang.String">
+            <column name="LIBELLE" length="250" />
+        </property>
+        
+        
+    </class>
+</hibernate-mapping>

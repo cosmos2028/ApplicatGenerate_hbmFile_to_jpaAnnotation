@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.RelanceFluxRemote"
+        table="ECH_PNGN_RELANCE" lazy="false">
+        <id name="id" type="java.lang.Long">
+            <column name="ECH_PNGN_RELANCE_ID" scale="0" />
+        </id>
+        <property name="nomFichier" type="string">
+            <column name="NOM_FICHIER" sql-type="varchar(500)" />
+        </property>
+        <property name="fichier" type="string">
+            <column name="FICHIER" sql-type="clob" />
+        </property>
+    </class>
+</hibernate-mapping>

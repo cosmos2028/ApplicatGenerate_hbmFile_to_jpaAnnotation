@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class table="SPK_CREATION_JSON"
+		name="fr.gouv.justice.cassiopee.invariant.affaire.model.CreationJsonSpark"
+		lazy="false">
+
+		<!-- PRIMARY KEY -->
+		<id name="idAffaire" column="AFFAIRE_ID" type="java.lang.Long">
+
+		</id>
+
+		<property name="identifiantJustice" type="java.lang.String">
+			<column name="IDENTIFIANT_JUSTICE" />
+		</property>
+
+		<property name="mode" type="java.lang.String">
+			<column name="MODE_AFFAIRE" />
+		</property>
+
+		<property name="dateDemande" type="java.util.Date">
+			<column name="DATE_DEMANDE" />
+		</property>
+
+		<property name="codeTgi" type="java.lang.String">
+			<column name="CODE_TGI" />
+		</property>
+
+		<property name="numeroParquet" type="java.lang.String">
+			<column name="NUMERO_PARQUET" />
+		</property>
+		<!-- AMI 383 -->
+		<property name="statutAffaire" type="java.lang.Integer">
+			<column name="STATUT_AFFAIRE" />
+		</property>
+
+
+	</class>
+</hibernate-mapping>

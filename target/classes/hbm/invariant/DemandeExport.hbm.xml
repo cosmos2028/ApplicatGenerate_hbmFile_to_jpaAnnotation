@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <subclass discriminator-value="EXPORT" 
+              name   = "fr.gouv.justice.cassiopee.processus.ech.model.DemandeExport" 
+              extends= "fr.gouv.justice.cassiopee.processus.ech.model.Demande"
+              lazy   = "false">  
+              
+        <!-- PROPERTY -->
+        <property name="rangFlux" type="java.lang.Integer">
+            <column name="NUM_RANG_FLUX" not-null="false" />
+        </property>
+        
+        <property name="numeroBordereau" type="java.lang.Integer">
+            <column name="NUMERO_BORDEREAU" not-null="false" />
+        </property>
+        
+        <property name="datePrevue" type="java.sql.Timestamp">
+            <column name="DATE_PREVUE" not-null="false" />
+        </property>
+        
+        <property name="dateJugement" type="java.sql.Timestamp">
+            <column name="DATE_JUGEMENT" not-null="false" />
+        </property>
+        
+        <property name="dateDebut" type="java.sql.Timestamp">
+            <column name="DATE_DEBUT" not-null="false" />
+        </property>
+        
+        <property name="dateFin" type="java.sql.Timestamp">
+            <column name="DATE_FIN" not-null="false" />
+        </property>
+        
+        <property name="numeroParquet" type="string">
+            <column name="NUMERO_PARQUET" not-null="false" />
+        </property>
+        
+        <property name="destinataire" type="string">
+            <column name="DESTINATAIRE" not-null="false" />
+        </property>
+        
+        <many-to-one name="modeEnvoi"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.ModeEnvoi"
+            outer-join="false" not-null="false" >
+            <column name="MODE_ENVOI" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="fichierEmis"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.FichierEmis"
+            outer-join="false" not-null="false" cascade="none" >
+            <column name="FICHIER_EMIS_ID" scale="0" />
+        </many-to-one>
+        
+    </subclass>
+</hibernate-mapping>

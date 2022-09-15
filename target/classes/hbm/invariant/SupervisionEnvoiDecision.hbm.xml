@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="fr.gouv.justice.cassiopee.processus.ech.model">
+  <class table= "ECH_SUPERVISION_ENVOI" 
+          name="fr.gouv.justice.cassiopee.processus.ech.model.SupervisionEnvoiDecision" lazy="false">
+  
+          <!-- PRIMARY KEY -->
+          <id name="id" column="SUPERVISION_ENVOI_ID" type="java.lang.Long">
+              <generator class="sequence">
+                  <param name="sequence">ECH_SUPERVISION_ENVOI_SEQ</param>
+              </generator>
+          </id>
+          <!-- PROPERTY -->
+          <property name="identifiantJustice" type="string">
+            <column name="IDENTIFIANT_JUSTICE" not-null="true" />
+          </property>
+          
+          <property name="dateDecision" type="date">
+            <column name="DATE_DECISION" not-null="true" />
+          </property>
+          
+          <property name="effacement" type="string">
+            <column name="EFFACEMENT" not-null="false" />
+          </property>
+          
+          <property name="dateTransmission" type="date">
+            <column name="DATE_TRANSMISSION" not-null="true" />
+          </property>
+          
+          <property name="fichier" type="string">
+            <column name="FICHIER" not-null="true" />
+          </property>
+          
+          <property name="motif" type="string">
+            <column name="code_motif" not-null="false" />
+          </property>
+          
+          <property name="libellePersonne" type="string">
+            <column name="Libelle_Personne" not-null="false" />
+          </property>          
+          
+          <!-- Associations -->
+          <many-to-one name="affaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+            outer-join="false" not-null="true"  >
+            <column name="AFFAIRE_ID" scale="0"  />
+          </many-to-one>
+          
+          <many-to-one name="personne"
+            class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne"
+            outer-join="false" not-null="true"  >
+            <column name="PERSONNE_ID" scale="0"  />
+          </many-to-one>
+          
+          <many-to-one name="infraction"
+            class="fr.gouv.justice.cassiopee.invariant.infraction.model.Infraction"
+            outer-join="false" not-null="true"  >
+            <column name="INFRACTION_ID" scale="0"  />
+          </many-to-one>
+          
+          <many-to-one name="tgi"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi"
+            outer-join="false" not-null="true"  >
+            <column name="CODE_TGI" scale="0"  />
+            </many-to-one>
+        
+            <many-to-one name="evenement"
+            class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+            outer-join="false" unique="true">
+            <column name="EVENEMENT_ID" scale="0"  />
+            </many-to-one>
+            
+            <many-to-one name="peineOuMesure"
+            class="fr.gouv.justice.cassiopee.invariant.peineoumesure.model.PeineOuMesure"
+            outer-join="false" >
+            <column name="PEINE_OU_MESURE_ID" scale="0"  />
+            </many-to-one>
+        
+        
+ </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.FluxEchange" table="ECH_PAR_FLUX_ECHANGE" lazy="false">
+        
+        <id name="code" type="java.lang.String">
+            <column name="CODE" />
+            <generator class="assigned" />
+        </id>
+        
+        <property name="libelle" type="java.lang.String">
+            <column name="LIBELLE" length="250" />
+        </property>
+        
+        <set name="typeEtatPossibles" inverse="false" lazy="true"  table="ECH_PAR_ETAT_POSSIBLE">
+            <key>
+                <column name="CODE_TYPE_FLUX" not-null="true" />
+            </key>
+            <many-to-many column="CODE_TYPE_ETAT"
+                class="fr.gouv.justice.cassiopee.processus.ech.model.TypeEtat" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

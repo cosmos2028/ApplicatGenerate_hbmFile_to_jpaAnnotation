@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class table="ECH_REFERENTIEL_PV" name="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPV" abstract="true" lazy="false" discriminator-value="null">
+        <!-- PRIMARY KEY -->
+        <id name="id" column="REFERENCE_PV_ID" type="java.lang.Long">
+            <generator class="sequence"> 
+                <param name="sequence">ECH_REF_PV_SEQ</param>
+            </generator>
+        </id>
+        
+        <discriminator column="INSTITUTION_ORIGINE" type="integer" />
+        
+        <subclass discriminator-value="1"
+            name="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPVGN">
+        
+          <property name="codeUniteRedactrice" type="string">
+              <column name="CODE_UNITE_REDACTRICE" not-null="true" />
+          </property>
+          
+          <property name="numeroProcedure" type="string">
+              <column name="NUMERO_PROCEDURE" not-null="true" />
+          </property>
+          
+          <property name="anneeProcedure" type="java.lang.Integer">
+              <column name="ANNEE_PROCEDURE" not-null="true" />
+          </property>
+          
+          <property name="dateCreation" type="java.util.Date">
+              <column name="DATE_CREATION" not-null="false" />
+          </property>
+          
+          <property name="eligibleTAJ" type="boolean">
+              <column name="ELIGIBLE_TAJ" not-null="true" />
+          </property>
+          
+           <property name="traitementCSS" type="string">
+            	<column name="TRAITEMENT_CSS"  />
+          </property>
+          <!-- Forfait(2.7.0) -->
+          <property name="forfaitisation" type="boolean">
+              <column name="INDIC_FORFAITISE" not-null="false"/>
+          </property>
+          <!-- AMI 	0119493: [AMI_308] Lot 3 Forfaitisation des délits et contraventions de cinquième classe -->
+          <property name="nmrDossierAgdd" type="string">
+              <column name="NMR_DOSSIER_INF" not-null="false"/>
+          </property>
+            <set name="personnes" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne" />
+            </set>
+            <set name="lienPersonneInfraction" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.infraction.model.LienPersonneInfraction" />
+            </set>
+        </subclass>
+        
+        <subclass discriminator-value="2"
+            name="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPVPN">
+        
+          <property name="codeUniteRedactrice" type="string">
+              <column name="CODE_UNITE_REDACTRICE" not-null="true" />
+          </property>
+          
+          <property name="numeroProcedure" type="string">
+              <column name="NUMERO_PROCEDURE" not-null="true" />
+          </property>
+          
+          <property name="anneeProcedure" type="java.lang.Integer">
+              <column name="ANNEE_PROCEDURE" not-null="true" />
+          </property>
+          
+          <property name="dateCreation" type="java.util.Date">
+              <column name="DATE_CREATION" not-null="false" />
+          </property>
+          
+          <property name="eligibleTAJ" type="boolean">
+              <column name="ELIGIBLE_TAJ" not-null="true" />
+          </property>
+          
+           <property name="traitementCSS" type="string">
+            	<column name="TRAITEMENT_CSS"  />
+          </property>
+          <property name="forfaitisation" type="boolean">
+              <column name="INDIC_FORFAITISE" not-null="false"/>
+          </property>
+         <!-- AMI 	0119493: [AMI_308] Lot 3 Forfaitisation des délits et contraventions de cinquième classe -->
+          <property name="nmrDossierAgdd" type="string">
+              <column name="NMR_DOSSIER_INF" not-null="false"/>
+          </property>
+          <set name="personnes" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne" />
+            </set>
+            <set name="lienPersonneInfraction" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.infraction.model.LienPersonneInfraction" />
+            </set>
+        </subclass>
+        
+        <subclass discriminator-value="3"
+            name="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPVAutre">
+        
+          <property name="identifiantProcedure" type="string">
+              <column name="IDENTIFIANT_PROCEDURE" not-null="false" />
+          </property>
+          
+          <property name="eligibleTAJ" type="boolean">
+              <column name="ELIGIBLE_TAJ" not-null="true" />
+          </property>
+          <set name="personnes" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne" />
+            </set>
+            <set name="lienPersonneInfraction" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.infraction.model.LienPersonneInfraction" />
+            </set>
+        </subclass>
+        
+        <subclass discriminator-value="4"
+            name="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPVCNTCA">
+        
+          <property name="codeUniteRedactrice" type="string">
+              <column name="CODE_UNITE_REDACTRICE" not-null="true" />
+          </property>
+          
+          <property name="numeroProcedure" type="string">
+              <column name="NUMERO_PROCEDURE" not-null="true" />
+          </property>
+          
+          <property name="anneeProcedure" type="java.lang.Integer">
+              <column name="ANNEE_PROCEDURE" not-null="true" />
+          </property>
+          
+          <property name="dateCreation" type="java.util.Date">
+              <column name="DATE_CREATION" not-null="false" />
+          </property>
+          
+          <property name="traitementCSS" type="string">
+            	<column name="TRAITEMENT_CSS"  />
+          </property>
+          <property name="forfaitisation" type="boolean">
+              <column name="INDIC_FORFAITISE" not-null="false"/>
+          </property>
+          <!-- AMI 	0119493: [AMI_308] Lot 3 Forfaitisation des délits et contraventions de cinquième classe -->
+          <property name="nmrDossierAgdd" type="string">
+              <column name="NMR_DOSSIER_INF" not-null="false"/>
+          </property>
+          <set name="personnes" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne" />
+            </set>
+            <set name="lienPersonneInfraction" inverse="true" lazy="true" cascade="all">
+                <key>
+                    <column name="REFERENCE_PV_ID" not-null="false" />
+                </key>
+                <one-to-many
+                    class="fr.gouv.justice.cassiopee.invariant.infraction.model.LienPersonneInfraction" />
+            </set>
+        </subclass>
+    </class>
+
+</hibernate-mapping>

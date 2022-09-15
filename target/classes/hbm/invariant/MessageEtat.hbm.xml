@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_MESSAGE_ETAT"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.MessageEtat" lazy="false">
+                 
+        <!-- PRIMARY KEY -->
+        <id name="id" column="MESSAGE_ID" type="java.lang.Long">
+            <generator class="sequence">
+                <param name="sequence">ECH_MESSAGE_ETAT_SEQ</param>
+            </generator>
+        </id>
+        
+        <property name="messages" type="string">
+            <column name="MESSAGE_TEXTE" not-null="true" />
+        </property>
+        
+        <many-to-one name="etat"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.Etat"
+            outer-join="false" not-null="true" >
+            <column name="ETAT_ID" scale="0" />
+        </many-to-one>                  
+    </class>
+</hibernate-mapping>

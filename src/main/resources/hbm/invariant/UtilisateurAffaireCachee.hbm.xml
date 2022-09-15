@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.parquet.model.UtilisateurAffaireCachee" table="PQT_UTILISATEUR_AFFAIRE_CACHEE">
+        <composite-id name="id" class="fr.gouv.justice.cassiopee.processus.parquet.model.UtilisateurAffaireCacheeId">
+            <key-many-to-one name="identificationParquet" lazy="false" class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet">
+                <column name="IDENTIFICATON_PARQUET_ID" scale="0" not-null="true" />
+            </key-many-to-one>
+            <key-many-to-one name="acteurInterne" lazy="false" class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne">
+                <column name="ACTEUR_INTERNE_ID" scale="0" not-null="true"/>
+            </key-many-to-one>
+        </composite-id>
+    </class>
+
+    <!-- Here we can define some custom queries to run -->
+        <query name="utilisateurAffaireCachee.request.exist"><![CDATA[from UtilisateurAffaireCachee uac where uac.id.identificationParquet.id= ? and uac.id.acteurInterne.id= ?]]></query>
+    
+</hibernate-mapping>

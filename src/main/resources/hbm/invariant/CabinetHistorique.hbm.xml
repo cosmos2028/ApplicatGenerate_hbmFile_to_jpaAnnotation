@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- 
+        Ce document est la propriété de GFI et du Ministère de la Justice.
+        Il ne peut être utilisé, reproduit ou divulgué sans leur autorisation écrite préalable.
+    -->
+    
+    <class name="fr.gouv.justice.cassiopee.processus.parquet.model.CabinetHistorique" table="PQT_CABINET_HISTORIQUE">
+        
+        <id name="id" type="java.lang.Long">
+            <column name="CABINET_HISTORIQUE_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">PQT_CABINET_HISTORIQUE_SEQ</param>
+            </generator>
+        </id>
+        
+        <property name="numeroCabinet" type="java.lang.String">
+            <column name="CABINET_NUMERO_CABINET" length="10" />
+        </property>
+        
+        <property name="numeroCabinetLongForSearchAndDisplay" type="java.lang.String">
+            <column name="CABINET_NUMERO_CABINET_LONG" length="32" />
+        </property>
+        
+        <property name="dateArrivee" type="java.util.Date">
+            <column name="CABINET_DATE_ARRIVEE" length="7" />
+        </property>
+        
+        <many-to-one name="service" class="fr.gouv.justice.cassiopee.administration.structure.model.Service" outer-join = "false">
+            <column name="CABINET_SERVICE_ID" length="19" />
+        </many-to-one>
+        
+        <many-to-one name="identificationParquet" class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet">
+            <column name="IDENTIFICATION_PARQUET_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

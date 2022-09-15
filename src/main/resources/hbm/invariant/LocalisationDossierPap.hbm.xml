@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.parquet.model.LocalisationDossierPap" table="PQT_LOCALISATION_DOSSIER_PAP">
+        <id name="id" type="java.lang.Long">
+            <column name="LOCALISATION_DOSSIER_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PQT_LOCALISATION_DOSSIER_SEQ</param>
+            </generator>
+        </id>
+        
+        <many-to-one name="identificationParquet" class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet">
+            <column name="IDENTIFICATON_PARQUET_ID" scale="0" />
+        </many-to-one>
+        <many-to-one name="localisationDossierPapLiee" class="fr.gouv.justice.cassiopee.processus.parquet.model.LocalisationDossierPap">
+            <column name="LOCALISATION_DOSSIER_LIEE_ID" scale="0" />
+        </many-to-one>
+        <property name="agentEmetteurRecepteurId" type="long">
+            <column name="EMETTEUR_RECEPTEUR_ID" />
+        </property>
+        <property name="agentDestinataireId" type="long">
+            <column name="DESTINATAIRE_ID" />
+        </property>
+        <property name="serviceDestinataireId" type="long">
+            <column name="DESTINATAIRE_SERVICE_ID" />
+        </property>
+        <many-to-one name="typeMouvement" class="fr.gouv.justice.cassiopee.processus.parquet.model.TypeMouvement">
+            <column name="CODE_TYPE_MOUVEMENT" />
+        </many-to-one>
+        <property name="dateMouvement" type="timestamp">
+            <column name="DATE_MOUVEMENT" length="7" not-null="true" />
+        </property>
+        <property name="commentaire" type="string">
+            <column name="COMMENTAIRE" length="300" />
+        </property>
+
+        <set name="localisationDossierPapParents" inverse="true">
+            <key>
+                <column name="LOCALISATION_DOSSIER_LIEE_ID" scale="0" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.processus.parquet.model.LocalisationDossierPap" />
+        </set>                
+    </class>
+</hibernate-mapping>

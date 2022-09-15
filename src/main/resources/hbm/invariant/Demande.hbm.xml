@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_DEMANDE"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.Demande" lazy="false">
+        
+        <!-- PRIMARY KEY -->
+        <id name="id" column="DEMANDE_ID" type="java.lang.Long">
+            <generator class="sequence"> 
+                <param name="sequence">ECH_DEMANDE_SEQ</param>
+            </generator>
+        </id>
+    
+        <!-- DISCRIMINATOR table-per-class-hierarchy mapping strategy -->
+        <discriminator column="DISC_CODE_TYPE_ECHANGE"
+            type="java.lang.String" not-null="true" />
+            
+        <property name="typeEchange" type="string" update="false" insert="false" access="field">
+            <column name="DISC_CODE_TYPE_ECHANGE" length="255" />
+        </property>
+            
+        <!-- PROPERTY -->
+        <property name="parametres" type="string">
+            <column name="ECH_PARAMS" not-null="false" />
+        </property>
+        
+        <property name="dateDemande" type="java.sql.Timestamp">
+            <column name="DATE_DEMANDE" not-null="true" />
+        </property>
+        
+        <property name="identifiantMessage" type="string">
+            <column name="REFERENCE_MESSAGE" not-null="false" />
+        </property>
+        
+        <!-- ASSOCIATIONS -->
+        
+        <many-to-one name="codeApplicatif"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.TypeApplicatif"
+            outer-join="false" not-null="true" >
+            <column name="CODE_APPLICATIF" scale="0" />
+        </many-to-one>  
+               
+        <many-to-one name="codeFlux"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.FluxEchange"
+            outer-join="false" not-null="true" >
+            <column name="CODE_FLUX" scale="0" />
+        </many-to-one> 
+        
+        <many-to-one name="dernierTypeEtat"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.TypeEtat"
+            outer-join="false" not-null="true" >
+            <column name="DERNIER_TYPE_ETAT" scale="0" />
+        </many-to-one> 
+        
+        <set name="etats" inverse="true" cascade="all-delete-orphan"
+            table="ECH_ETAT" order-by="ETAT_ID asc">
+            <key>
+                <column name="DEMANDE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.ech.model.Etat" />
+        </set>
+        
+        <many-to-one name="evenement"
+            class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+            outer-join="false" not-null="true" >
+            <column name="EVENEMENT_ID" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="evenementLie" 
+            class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+            outer-join="false" not-null="false" >
+            <column name="EVENEMENT_LIE_ID" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="personne"
+            class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne"
+            outer-join="false" not-null="true"  >
+            <column name="PERSONNE_ID" scale="0"  />
+        </many-to-one>
+        
+        <many-to-one name="affaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+            outer-join="false" not-null="true"  >
+            <column name="AFFAIRE_ID" scale="0"  />
+        </many-to-one>
+        
+        <many-to-one name="tgi"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi"
+            outer-join="false" not-null="true"  >
+            <column name="CODE_TGI" scale="0"  />
+        </many-to-one>
+        
+        <one-to-one name="detailsRomeo" 
+            class="fr.gouv.justice.cassiopee.processus.ech.model.DemandeRomeoDetails"
+            cascade="save-update">
+        </one-to-one>
+        
+    </class>
+</hibernate-mapping>

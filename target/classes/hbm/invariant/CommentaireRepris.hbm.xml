@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <class
+        name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireRepris"
+        table="TDR_COMMENTAIRE_REPRIS">
+        <id name="id" type="java.lang.Long">
+            <column name="COMMENTAIRE_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">TDR_COMMENTAIRE_REPRIS_SEQ</param>
+            </generator>
+        </id>
+
+        <discriminator column="DISC_TYPE_OBJET" type="string"
+            not-null="true" />
+
+        <property name="identifiantFichier"
+            type="java.lang.String">
+            <column name="IDENTIFIANT_FICHIER" length="15"/>
+        </property>
+
+        <property name="texte" type="text">
+            <column name="TEXTE" />
+        </property>
+
+        <subclass discriminator-value="AFF"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisAffaire">
+            <many-to-one name="affaire" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+                <column name="AFFAIRE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PER"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisPersonne">
+            <many-to-one name="personne" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne">
+                <column name="PERSONNE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="EVT"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisEvenement">
+            <many-to-one name="evenement" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement">
+                <column name="EVENEMENT_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="INF"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisInfraction">
+            <many-to-one name="infraction" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.infraction.model.Infraction">
+                <column name="INFRACTION_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PEV"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisPersonneEvenement">
+            <many-to-one name="personneEvenement" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.PersonneEvenement">
+                 <column name="PERSONNE_EVENEMENT_ID" scale="0" />  
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PEM"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisPeineOuMesure">
+            <many-to-one name="peineOuMesure" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.peineoumesure.model.PeineOuMesure">
+                <column name="PEINE_OU_MESURE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="DIE"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisDispositifExterieur">
+            <many-to-one name="dispositifExterieur" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.exterieur.model.DispositifExterieur">
+                <column name="DISPOSITIF_EXTERIEUR_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="SCE"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.CommentaireReprisDepot">
+            <many-to-one name="depot" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.scelle.model.Depot">
+                <column name="DEPOT_ID" scale="0" />
+            </many-to-one>
+            <many-to-one name="affaire" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+                <column name="AFFAIRE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+    </class>
+</hibernate-mapping>

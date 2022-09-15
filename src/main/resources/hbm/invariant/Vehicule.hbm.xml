@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.invariant.affaire.model.Vehicule" table="AFF_VEHICULE">
+        
+        <id name="id" type="java.lang.Long">
+            <column name="VEHICULE_ID" scale="0" />
+            <generator class="sequence">
+             <param name="sequence">AFF_VEHICULE_SEQ</param>
+            </generator>
+        </id>
+       
+        <many-to-one name="affaire" outer-join="false" class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+            <column name="AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>
+        <!-- PROPERTY -->
+        <property name="rang" type="java.lang.Integer">
+            <column name="RANG" precision="6" scale="0" not-null="true" />
+        </property>
+        
+        <property name="numeroImmatriculation" type="java.lang.String">
+            <column name="NUMERO_IMMATRICULATION" length="12" />
+        </property>
+        
+        <property name="type" type="string">
+            <column name="TYPE" length="32" />
+        </property>
+        
+        <property name="marque" type="java.lang.String">
+            <column name="MARQUE" length="32" />
+        </property>
+        
+        <property name="modele" type="java.lang.String">
+            <column name="MODELE" length="32" />
+        </property>
+        
+        <property name="commentaire" type="java.lang.String">
+            <column name="COMMENTAIRE" length="64" />
+        </property>
+        <property name="paysImmatriculation" type="java.lang.String">
+            <column name="PAYS_IMMATRCULATION" length="255" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

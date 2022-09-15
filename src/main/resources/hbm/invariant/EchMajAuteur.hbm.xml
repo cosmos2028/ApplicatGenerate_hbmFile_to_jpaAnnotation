@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.EchMajAuteur" table="ECH_PNGN_MAJ_AUTEUR">
+        <id name="id" type="java.lang.Long">
+            <column name="ECH_MAJ_AUTEUR_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">ECH_MAJ_AUTEUR_SEQ</param>
+            </generator>
+        </id>    
+        <many-to-one name="echMajAffaire" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.EchMajAffaire" insert="false" update="false">
+            <column name="ECH_MAJ_AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="personneId" type="java.lang.String">
+            <column name="PER_ID" />
+        </property>        
+        <property name="modification" type="java.lang.String">
+            <column name="MODIFICATION" />
+        </property>
+        <property name="perType" type="java.lang.String">
+            <column name="PER_TYPE" />
+        </property>
+        <property name="perMorRaisonSocialeAv" type="java.lang.String">
+            <column name="PER_MOR_RAISON_SOCIALE_AV" />
+        </property>
+        <property name="perMorRaisonSocialeAp" type="java.lang.String">
+            <column name="PER_MOR_RAISON_SOCIALE_AP" />
+        </property>
+        <property name="perMorRole" type="java.lang.String">
+            <column name="PER_MOR_ROLE" />
+        </property>
+        <property name="perMorEnseigneComm" type="java.lang.String">
+            <column name="PER_MOR_ENSEIGNE_COMM" />
+        </property>
+        <property name="perMorSigle" type="java.lang.String">
+            <column name="PER_MOR_SIGLE" />
+        </property>
+        <property name="perMorNumSirenSiret" type="java.lang.String">
+            <column name="PER_MOR_NUM_SIREN_SIRET" />
+        </property>
+        <property name="informationPv" type="java.lang.String">
+            <column name="INFORMATION_PV" />
+        </property>
+        <property name="perNomAv" type="java.lang.String">
+            <column name="PER_NOM_AV" />
+        </property>
+        <property name="perPrenomAv" type="java.lang.String">
+            <column name="PER_PRENOM_AV" />
+        </property>
+        <property name="perPrenom2Av" type="java.lang.String">
+            <column name="PER_PRENOM2_AV" />
+        </property>
+        <property name="perPrenom3Av" type="java.lang.String">
+            <column name="PER_PRENOM3_AV" />
+        </property>
+        <property name="xSeDisantAv" type="java.lang.String">
+            <column name="X_SE_DISANT_AV" />
+        </property>
+        <property name="perNaissDateForAv" type="java.lang.String">
+            <column name="PER_NAISS_DATE_FOR_AV" />
+        </property>
+        <property name="perPhysiqueRoleAv" type="java.lang.String">
+            <column name="PER_PHYSIQUE_ROLE_AV" />
+        </property>
+        <property name="perNaissLieuAv" type="java.lang.String">
+            <column name="PER_NAISS_LIEU_AV" />
+        </property>
+        <property name="perInseeLieuNaissAv" type="java.lang.String">
+            <column name="PER_INSEE_LIEU_NAISS_AV" />
+        </property>
+        <property name="perNaissPaysAv" type="java.lang.String">
+            <column name="PER_NAISS_PAYS_AV" />
+        </property>
+        <property name="perNomAp" type="java.lang.String">
+            <column name="PER_NOM_AP" />
+        </property>
+        <property name="perNomMaritalAp" type="java.lang.String">
+            <column name="PER_NOM_MARITAL_AP" />
+        </property>
+        <property name="perPrenomAp" type="java.lang.String">
+            <column name="PER_PRENOM_AP" />
+        </property>
+        <property name="perPrenom2Ap" type="java.lang.String">
+            <column name="PER_PRENOM2_AP" />
+        </property>
+        <property name="perPrenom3Ap" type="java.lang.String">
+            <column name="PER_PRENOM3_AP" />
+        </property>
+        <property name="xSeDisantAp" type="java.lang.String">
+            <column name="X_SE_DISANT_AP" />
+        </property>
+        <property name="perCiviliteSexeAp" type="java.lang.String">
+            <column name="PER_CIVILITE_SEXE_AP" />
+        </property>
+        <property name="perNaissDateForAp" type="java.lang.String">
+            <column name="PER_NAISS_DATE_FOR_AP" />
+        </property>
+        <property name="perPhysiqueRoleAp" type="java.lang.String">
+            <column name="PER_PHYSIQUE_ROLE_AP" />
+        </property>
+        <property name="perNaissLieuAp" type="java.lang.String">
+            <column name="PER_NAISS_LIEU_AP" />
+        </property>
+        <property name="perInseeLieuNaissAp" type="java.lang.String">
+            <column name="PER_INSEE_LIEU_NAISS_AP" />
+        </property>
+        <property name="perNaissPaysAp" type="java.lang.String">
+            <column name="PER_NAISS_PAYS_AP" />
+        </property>
+        <property name="perNationaliteAp" type="java.lang.String">
+            <column name="PER_NATIONALITE_AP" />
+        </property>
+        <property name="perNationalite_2Ap" type="java.lang.String">
+            <column name="PER_NATIONALITE_2_AP" />
+        </property>
+        <property name="perProfessionAp" type="java.lang.String">
+            <column name="PER_PROFESSION_AP" />
+        </property>
+        <property name="perFiliationNomPereAp" type="java.lang.String">
+            <column name="PER_FILIATION_NOM_PERE_AP" />
+        </property>
+        <property name="perFiliationPrenomPereAp" type="java.lang.String">
+            <column name="PER_FILIATION_PRENOM_PERE_AP" />
+        </property>
+        <property name="perFiliationNomMereAp" type="java.lang.String">
+            <column name="PER_FILIATION_NOM_MERE_AP" />
+        </property>
+        <property name="perFiliationPrenomMereAp" type="java.lang.String">
+            <column name="PER_FILIATION_PRENOM_MERE_AP" />
+        </property>
+        <property name="perSituationFamilialeAp" type="java.lang.String">
+            <column name="PER_SITUATION_FAMILIALE_AP" />
+        </property>
+        <property name="majeurSelonExpertiseAp" type="java.lang.String">
+            <column name="MAJEUR_SELON_EXPERTISE_AP" />
+        </property>
+        <property name="dateDecesAp" type="java.lang.String">
+            <column name="DATE_DECES_AP" />
+        </property>    
+    </class>
+</hibernate-mapping>

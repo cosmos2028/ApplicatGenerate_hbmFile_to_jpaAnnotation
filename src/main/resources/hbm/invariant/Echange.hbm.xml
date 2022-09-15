@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <sql-query name="get_fluxXml_by_id" callable="true">
+     <return-scalar column="EXTRACTION_XML" type="string"/>
+    
+     { ? = call ECH_FLUX_PE_PKG.get_fluxXml_by_id(:idDemande) }
+    
+    </sql-query>
+    <sql-query name="get_fluxRomeo_by_id" callable="true">
+    <return-scalar column="FLUX_XML" type="string"/>
+    { ? = call ECH_FLUX_ROMEO_PKG.get_fluxRomeo_by_id(:idDemande) }
+    </sql-query>
+    
+</hibernate-mapping>

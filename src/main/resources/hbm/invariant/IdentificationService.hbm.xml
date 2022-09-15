@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- Ce document est la propriété du Ministère de la Justice. Il ne peut 
+        être utilisé, reproduit ou divulgué sans leur autorisation écrite préalable. -->
+    <class
+        name="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationService"
+        table="PQT_IDENTIFICATION_SERVICE">
+
+        <id name="id" type="java.lang.Long">
+            <column name="IDENTIFICATION_SERVICE_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PQT_IDENTIFICATION_SERVICE_SEQ</param>
+            </generator>
+        </id>
+
+        <component name="numeroCaCass"
+            class="fr.gouv.justice.cassiopee.processus.parquet.model.NumeroCaCass">
+
+            <property name="annee" type="java.lang.String">
+                <column name="ANNEE" length="4" not-null="true" />
+            </property>
+
+            <property name="numero" type="java.lang.String">
+                <column name="NUMERO" length="6" not-null="true" />
+            </property>
+
+            <many-to-one name="service"
+                class="fr.gouv.justice.cassiopee.administration.structure.model.Service"
+                outer-join="false">
+                <column name="SERVICE_ID" scale="0" not-null="true" />
+            </many-to-one>
+
+        </component>
+
+        <property name="version" type="java.lang.String">
+            <column name="VERSION" length="4" not-null="true" />
+        </property>
+
+        <property name="dateIdentification" type="java.util.Date">
+            <column name="DATE_IDENTIFICATION" length="7" not-null="true" />
+        </property>
+
+        <property name="indicActif" type="java.lang.Boolean">
+            <column name="INDIC_ACTIF" precision="1" scale="0" not-null="true" />
+        </property>
+
+        <!-- ASSOCIATION -->
+
+        <many-to-one name="affaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+            outer-join="false">
+            <column name="AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+
+</hibernate-mapping>

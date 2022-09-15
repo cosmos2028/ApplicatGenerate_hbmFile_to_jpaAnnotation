@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.IdPv"
+        table="ECH_PNGN_ID_PV" lazy="false">
+        <id name="idPv" type="string">
+            <column name="ID_PV" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombrePersInf" type="java.lang.Integer">
+            <column name="NB_CP_PERS_INF" sql-type="number(5)" />
+        </property>
+        <property name="dateCreation" type="java.util.Date">
+            <column name="DATE_CREATION" sql-type="date" />
+        </property>
+        <property name="importManuel" type="boolean">
+            <column name="IMPORT_MANUEL" precision="1" scale="0" />
+        </property>                    
+    </class>
+</hibernate-mapping>

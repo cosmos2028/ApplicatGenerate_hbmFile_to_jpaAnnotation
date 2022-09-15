@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="LOG_ECH_TRACE_ADM_SRJ_EXP"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.EchTrace" lazy="false">
+        
+        <!-- PRIMARY KEY -->
+        <id name="id" column="ECH_TRACE_ID" type="java.lang.Long">
+            <generator class="sequence">
+                <param name="sequence">LOG_ECH_TRACE_ADM_SRJ_EXP_SEQ</param>
+            </generator>
+        </id>
+    
+        <!-- PROPERTY -->
+        <property name="typeTrace" type="java.lang.String">
+            <column name="ECH_TYPE_TRACE" not-null="false" />
+        </property>
+        
+        <property name="trace" type="java.lang.String">
+            <column name="ECH_TRACE" not-null="false" />
+        </property>
+        
+        <property name="dateTrace" type="java.sql.Timestamp">
+            <column name="DATE_TRACE" not-null="false" />
+        </property>
+        
+        <property name="demandeId" type="java.lang.Long">
+            <column name="ECH_DEMANDE_ID" not-null="true" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class table="AFF_AFFAIRE"
+        name="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire" lazy="false">
+        <!-- PRIMARY KEY -->
+        <id name="id" column="AFFAIRE_ID" type="java.lang.Long">
+            <generator class="sequence">
+                <param name="sequence">AFF_AFFAIRE_SEQ</param>
+            </generator>
+        </id>
+
+        <!-- DISCRIMINATOR table-per-class-hierarchy mapping strategy -->
+        <discriminator column="DISC_CODE_TYPE_AFFAIRE"
+            type="java.lang.String" not-null="true" />
+
+        <version name="version" column="VERSION" type="long"></version>
+
+        <property name="typeAffaire" type="string" update="false" insert="false" access="field">
+            <column name="DISC_CODE_TYPE_AFFAIRE" length="255" />
+        </property>
+
+        <!-- PROPERTY -->
+        <property name="dateReprise" type="java.sql.Timestamp">
+            <column name="DATE_REPRISE" length="7" />
+        </property>
+
+        <property name="dateArchivage" type="java.sql.Timestamp">
+            <column name="DATE_ARCHIVAGE" length="7" />
+        </property>
+
+        <property name="dossierComplet" type="java.lang.Boolean">
+            <column name="INDIC_DOSSIER_COMPLET" precision="1"
+                scale="0" />
+        </property>
+
+        <property name="commentaire" type="java.lang.String">
+            <column name="COMMENTAIRE" />
+        </property>
+
+        <property name="indexePersonnes" type="java.lang.Integer">
+            <column name="INDEXE_PERSONNES" />
+        </property>
+
+        <property name="codeVueCreation" type="java.lang.String">
+            <column name="CODE_VUE_CREATION" />
+        </property>
+
+        <property name="alerteDossier" type="java.lang.String">
+            <column name="ALERTE_AFFAIRE" />
+        </property>
+
+        <!-- DEI_1342 -->
+        <property name="eligiblePortalis" type="boolean">
+            <column name="ELIGIBLE_PORTALIS" precision="1" scale="0" />
+        </property>
+
+        <property name="passageDbExtract" type="boolean">
+            <column name="PASSAGE_DB_EXTRACT" precision="1" scale="0" />
+        </property>
+
+        <many-to-one name="referencePVOrigine" outer-join="false" class="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPV">
+            <column name="REF_PV_ORIGINE_ID" />
+        </many-to-one>
+
+        <!-- COMPONENT  -->
+        <component name="infoSuppression"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.InfoSuppression">
+
+            <property name="dateSuppression" type="java.util.Date">
+                <column name="INFO_SUPP_DATE_SUPPRESSION" length="7" />
+            </property>
+
+            <many-to-one column="INFO_SUPP_SERVICE_ID"
+                name="serviceSuppression"
+                class="fr.gouv.justice.cassiopee.administration.structure.model.Service"
+                outer-join="false" />
+
+            <many-to-one column="INFO_SUPP_ACTEUR_INTERNE_ID"
+                name="acteurInterneSuppression"
+                class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne"
+                outer-join="false" />
+        </component>
+
+        <component name="indicateur"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.Indicateur">
+
+            <property name="affaireSignalee" type="java.lang.Boolean">
+                <column name="INDIC_AFFAIRE_SIGNALEE" precision="1"
+                    scale="0" />
+            </property>
+
+            <property name="affaireCachee" type="java.lang.Boolean">
+                <column name="INDIC_AFFAIRE_CACHEE" precision="1"
+                    scale="0" />
+            </property>
+
+            <property name="interetHistorique"
+                type="java.lang.Boolean">
+                <column name="INDIC_INTERET_HISTORIQUE" precision="1"
+                    scale="0" />
+            </property>
+
+            <property name="scellePv" type="java.lang.Boolean">
+                <column name="INDIC_SCELLE_PV" precision="1" scale="0" />
+            </property>
+
+            <property name="gardiennage" type="java.lang.Boolean">
+                <column name="INDIC_GARDIENNAGE" precision="1"
+                    scale="0" />
+            </property>
+
+            <property name="scellesDansModuleScellesOuSpark" type="java.lang.Integer">
+                <column name="INDIC_SCELLES_DANS_SCELLES"/>
+            </property>
+			<property name="affaireForfaitisee" type="java.lang.Boolean">
+                <column name="INDIC_FORFAITISE" precision="1"
+                    scale="0"/>
+            </property>
+
+             <!-- [DEI-041] EIA-Spark : ï¿½ Scellï¿½s dans l'affaire ï¿½ -->
+            <property name="presenceScellesDansAffaire" type="java.lang.Boolean">
+                <column name="IND_SCELLE_DANS_SPARK" precision="1"
+                    scale="0" />
+            </property>
+            <!-- Debut : 0136640: [AMI_090] Ajouts indicateurs - Affaires PNAT et Affaires PNF (1/2) -->
+            <property name="suivieParLePNAT" type="java.lang.Boolean">
+                <column name="INDIC_PNAT" precision="1"
+                    scale="0" />
+            </property>
+            <property name="suivieParLePNF" type="java.lang.Boolean">
+                <column name="INDIC_PNF" precision="1"
+                    scale="0" />
+            </property>
+            <!-- Fin : 0136640: [AMI_090] Ajouts indicateurs - Affaires PNAT et Affaires PNF (1/2) -->
+            <!-- DEBUT: 0146104: [DEI_1006] (LPJ) Création des services autonomes de type parquet PNAT et PNF dans l'applicatif métier Cassiopée -->
+            <property name="accesAffairePNAT" type="java.lang.Boolean">
+                <column name="ACCES_PNAT" precision="1"
+                    scale="0" />
+            </property>
+            <property name="accesAffairePNF" type="java.lang.Boolean">
+                <column name="ACCES_PNF" precision="1"
+                    scale="0" />
+            </property>
+            <!--  FIN: 0146104: [DEI_1006] (LPJ) Création des services autonomes de type parquet PNAT et PNF dans l'applicatif métier Cassiopée -->
+            <property name="affaireTraitementCSS" type="java.lang.String">
+                <column name="INDIC_CSS" />
+            </property>
+            <!-- [EVO 1014] MAEE -->
+            <property name="affaireMAEE_S" type="java.lang.Boolean">
+                <column name="INDIC_MAEE_S" precision="1"
+                    scale="0"/>
+            </property>
+            <property name="affaireMAEE_E" type="java.lang.Boolean">
+                <column name="INDIC_MAEE_E" precision="1"
+                    scale="0"/>
+            </property>
+        </component>
+
+        <!-- ASSOCIATIONS  -->
+        <many-to-one column="CODE_ETAT_AFFAIRE" name="etatAffaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.EtatAffaire"
+            outer-join="false" not-null="true"/>
+
+        <many-to-one column="CODE_ETAT_AFFAIRE_PRECEDENT"
+            name="etatPrecedentAffaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.EtatAffaire"
+            outer-join="false" />
+
+        <many-to-one column="CODE_ORIGINE_AFFAIRE" name="origineAffaire"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.OrigineAffaire"
+            outer-join="false" />
+
+        <many-to-one column="CODE_TYPOLOGIE_ARCHIVAGE"
+            name="typologieArchivage"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.TypologieArchivage"
+            outer-join="false" />
+
+        <!-- ASSOCIATIONS SET -->
+        <set name="personnes" lazy="true" inverse="true"
+            order-by="RANG ASC">
+            <key>
+                <column name="AFFAIRE_ID" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne" />
+        </set>
+
+        <set name="evenements" inverse="true" order-by="EVENEMENT_ID">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement" />
+            <filter name="filtreEvenementRequis" condition="CODE_ETAT&lt;&gt;'REQUIS'" />
+        </set>
+
+        <set name="identificationParquets" inverse="true" optimistic-lock="false">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet" />
+        </set>
+
+        <set name="affairesOrigineLiees" inverse="true" lazy="false">
+            <key>
+                <column name="ID_AFFAIRE_DESTINATION" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.AffaireLiee" />
+        </set>
+        <set name="affairesDestinationLiees" inverse="true" lazy="true">
+            <key>
+                <column name="ID_AFFAIRE_ORIGINE" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.AffaireLiee" />
+        </set>
+
+        <set name="fixations" inverse="true"
+            order-by="AFFAIRE_FIXEE_ID">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.service.audience.model.AffaireFixee" />
+        </set>
+
+        <set name="utilisateurAffaireFavorites" inverse="true" cascade="all,delete-orphan" lazy="true">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.UtilisateurAffaireFavorite" />
+        </set>
+
+        <set name="depots" inverse="true" cascade="none" lazy="true">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.invariant.scelle.model.Depot" />
+        </set>
+
+        <property name="commentaireStock" type="java.lang.String">
+            <column name="COMMENTAIRE_STOCK" />
+        </property>
+
+        <property name="indicateurScelleAGRASC" type="java.lang.Boolean">
+            <column name="INDIC_SCELLE_AGRASC" precision="1"
+                scale="0" />
+        </property>
+
+        <set name="identificationsServices" inverse="true" cascade="all,delete-orphan" lazy="true">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationService" />
+        </set>
+
+         <set name="infractions" inverse="true">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.invariant.infraction.model.Infraction" />
+        </set>
+
+    </class>
+</hibernate-mapping>

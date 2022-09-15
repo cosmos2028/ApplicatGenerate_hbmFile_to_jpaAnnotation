@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.DoublonInfraction" table="ECH_DOUBLON_INFRACTION" lazy="false">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">ECH_DOUBLON_INFRACTION_SEQ</param>
+            </generator>
+        </id>
+
+        <many-to-one name="infraction" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.infraction.model.Infraction">
+                <column name="INFRACTION_ID" scale="0" />
+        </many-to-one>
+
+        <many-to-one name="affaire" outer-join="false"
+            class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+            <column name="AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>
+
+        <many-to-one name="referentielPV" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.ReferentielPV">
+            <column name="REFERENCE_PV_DOUBLON_ID" />
+        </many-to-one>
+
+        <property name="dateCreation" type="java.util.Date">
+            <column name="DATE_CREATION_DOUBLON" />
+        </property>
+        
+        <property name="rangDoublon" type="integer">
+            <column name="RANG_DOUBLON" precision="5" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

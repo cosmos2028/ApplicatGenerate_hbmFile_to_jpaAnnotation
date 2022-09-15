@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class 
+    name="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationJustice" 
+    table="PQT_IDENTIFICATION_JUSTICE">
+        
+        <id name="identificationJusticeId" type="java.lang.Long">
+            <column name="IDENTIFICATON_JUSTICE_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">PQT_IDENTIFICATION_JUSTICE_SEQ</param>
+            </generator>
+        </id>
+        
+        <!--  PROPERTY -->
+        <property name="identificationParquetId" type="java.lang.Long">
+            <column name="IDENTIFICATION_PARQUET_ID" />
+        </property>
+
+        <property name="identifiantJustice" type="java.lang.String">
+            <column name="IDENTIFIANT_JUSTICE" length="11" not-null="true" unique="true" />
+        </property>
+       
+        <property name="anneeValiditeIdj" type="java.lang.String">
+            <column name="ANNEE_VALIDITE_IDJ" length="4" unique="true" />
+        </property>
+                
+        <property name="dateEnregistrement" type="java.sql.Timestamp">
+            <column name="DATE_ENREGISTREMENT" />
+        </property>
+        
+        <property name="dateReservation" type="java.sql.Timestamp">
+            <column name="DATE_RESERVATION" />
+        </property>
+        
+        <property name="dateUtilisation" type="java.sql.Timestamp">
+            <column name="DATE_UTILISATION" />
+        </property>
+        
+        <property name="dateMiseAJourMoteur" type="java.sql.Timestamp">
+            <column name="DATE_MISE_A_JOUR_MOTEUR" not-null="true" />
+        </property>       
+        
+        <property name="etat" type="java.lang.String">
+            <column name="ETAT" length="1" />
+        </property>     
+            
+    </class>
+</hibernate-mapping>

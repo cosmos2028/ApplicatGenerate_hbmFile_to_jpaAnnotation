@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class
+        name="fr.gouv.justice.cassiopee.invariant.edition.model.Edition"
+        table="EDN_EDITION" discriminator-value="EDITION">
+        <id name="id" type="java.lang.Long">
+            <column name="EDITION_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">EDN_EDITION_SEQ</param>
+            </generator>
+        </id>
+        <!--  discriminator -->
+        <discriminator column="DISCRIMINATOR" type="string"
+            length="255" />
+
+        <!-- edition type -->
+        <many-to-one name="editionType"
+            class="fr.gouv.justice.cassiopee.invariant.edition.model.EditionType"
+            outer-join="false">
+            <column name="CODE_EDITION_TYPE" not-null="true" />
+        </many-to-one>
+
+        <!--  date de composition -->
+        <property name="dateComposition" column="DATE_COMPOSITION"
+            type="java.util.Date">
+        </property>
+
+        <!-- mode de conservation -->
+        <property name="codeModeConservation"
+            column="TYPE_MODE_CONSERVATION" type="java.lang.String"
+            length="255">
+        </property>
+        <many-to-one name="evenementAttache" not-found="ignore"
+            column="MODE_CONSERVATION_EVT_ID"
+            class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement">
+        </many-to-one>
+        <many-to-one name="classeurPersonnel"
+            column="MODE_CONSERVATION_CLASSEUR_ID"
+            class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ClasseurPersonnel">
+        </many-to-one>
+
+        <!-- destinataire -->
+        <property name="codeTypeDestinataire"
+            column="TYPE_DESTINATAIRE_EDITION" type="java.lang.String"
+            length="3">
+        </property>
+        <property name="libelleDestinataire"
+            column="DESTINATAIRE_LIBELLE" type="java.lang.String"
+            length="255">
+        </property>
+        <many-to-one name="envoiMail" 
+            outer-join="false" column="ENVOI_MAIL_ID" 
+            class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.EnvoiMail">
+        </many-to-one>
+
+        <!-- export CSV partiel ou non -->
+        <property name="indicateurExportCsvPartiel" type="java.lang.Boolean" >
+            <column name="INDIC_EXPORT_CSV_PARTIEL" precision="1" scale="0" default="0"/>
+        </property>
+        <!-- nom du fichier de l'export CSV -->
+        <property name="nomFichierExportCsv"
+            column="NOM_FICHIER_EXPORT_CSV" type="java.lang.String"
+            length="255">
+        </property>
+
+        <many-to-one name="personneAffaireDestinataire"
+            outer-join="false" column="DEST_EDI_PERSONNE_ID"
+            class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne">
+        </many-to-one>
+
+        <many-to-one name="elementStructureDestinataire"
+            outer-join="false" column="DEST_EDI_CODE_ELEMENT_STRUCTUR"
+            class="fr.gouv.justice.cassiopee.referentiel.structure.model.ElementStructure">
+        </many-to-one>
+
+        <many-to-one name="serviceDestinataire" outer-join="false"
+            column="DEST_EDI_SERVICE_ID"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.Service">
+        </many-to-one>
+
+        <many-to-one name="personneQualifieeDestinataire"
+            outer-join="false" column="DEST_EDI_PERSONNE_QUAL_ID"
+            class="fr.gouv.justice.cassiopee.administration.acteur.externe.model.PersonneQualifiee">
+        </many-to-one>
+
+        <many-to-one name="avocatPersonneAffaireDestinataire"
+            outer-join="false" column="DEST_EDI_AVOCAT_ID"
+            class="fr.gouv.justice.cassiopee.invariant.personne.model.AvocatPersonneAffaire">
+        </many-to-one>
+
+        <many-to-one name="interpreteDestinataire" outer-join="false"
+            column="DEST_EDI_INTERPRETE_ID"
+            class="fr.gouv.justice.cassiopee.invariant.personne.model.Interprete">
+        </many-to-one>
+
+        <many-to-one name="acteurInterneDestinataire"
+            outer-join="false" column="DEST_EDI_ACTEUR_ID"
+            class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne">
+        </many-to-one>
+
+        <!-- Personne Concernee -->
+        <many-to-one name="personneConcernee" outer-join="false"
+            column="PCON_EDI_PERSONNE_ID"
+            class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne">
+        </many-to-one>
+
+        <!--  origine  -->
+        <property name="codeTypeOrigineEdition" column="TYPE_ORIGINE"
+            type="java.lang.String" length="16">
+        </property>
+        <property name="libelleOrigine" column="ORIGINE_LIBELLE"
+            type="java.lang.String" length="255">
+        </property>
+        <many-to-one name="evenementOrigine" outer-join="false" lazy="false"
+            column="ORIGINE_EVENEMENT_ID"
+            class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement">
+        </many-to-one>
+        <many-to-one name="idParquetAffEvenementOrigine"
+            column="ORIGINE_EVT_AFF_IDENT_PQT_ID" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet">
+        </many-to-one>
+        <many-to-one name="idParquetAffaireOrigine"
+            column="ORIGINE_AFF_IDENT_PARQUET_ID" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet">
+        </many-to-one>
+        <many-to-one name="idParquetAffaireOrigineOrAffEvenementOrigine" access="noop"
+            formula="NVL(origine_aff_ident_parquet_id, origine_evt_aff_ident_pqt_id)"
+            class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet">
+        </many-to-one>
+        <many-to-one name="audienceOrigine" column="ORIGINE_AUDIENCE_ID"
+            outer-join="false"
+            class="fr.gouv.justice.cassiopee.service.audience.model.Audience">
+        </many-to-one>
+        <one-to-one name="document"
+            class="fr.gouv.justice.cassiopee.invariant.edition.model.Document"
+            outer-join="false" constrained="false" lazy="proxy"
+            cascade="all" />
+        <many-to-one name="editionDifferee" column="EDITION_DIFFEREE_ID"
+            outer-join="false"
+            lazy="false"
+            not-found="ignore"
+            class="fr.gouv.justice.cassiopee.invariant.edition.model.EditionDemandeDifferee">
+        </many-to-one>
+        <many-to-one name="suiviPEEcrou" outer-join="false"
+            class="fr.gouv.justice.cassiopee.referentiel.codification.model.SuiviPEEcrou">
+            <column name="CODE_SUIVI_PE_ECROU" />
+        </many-to-one>
+
+        <!-- indicateur echec -->
+        <property name="echec" type="java.lang.Boolean">
+            <column name="INDIC_ECHEC" precision="1" scale="0" />
+        </property>
+        <!-- rapport d'erreur -->
+        <component name="rapportErreurEdition"
+            class="fr.gouv.justice.cassiopee.invariant.edition.model.RapportErreurEdition">
+            <property name="messageErreur"
+                column="RAPPORT_MESSAGE_ERREUR" type="string">
+            </property>
+        </component>
+
+        <component name="recommande"
+            class="fr.gouv.justice.cassiopee.invariant.edition.model.Recommande">
+            <property name="numeroRecommande"
+                column="NUMERO_RECOMMANDE" type="string">
+            </property>
+            <property name="codeTypeRecommande"
+                column="CODE_TYPE_RECOMMANDE" type="string">
+            </property>
+        </component>
+
+        <property name="eligiblePortalis" type="boolean">
+            <column name="ELIGIBLE_PTS" length="1" />
+        </property>
+
+        <property name="eligibleBPN" type="java.lang.Boolean">
+            <column name="ELIGIBLE_BPN" precision="1"
+                    scale="0" />
+        </property>
+
+        <subclass
+            name="fr.gouv.justice.cassiopee.processus.execution.model.PieceExecution"
+            discriminator-value="PieceExecution">
+            <set name="personneEvenementPorteurs" inverse="false"
+                lazy="true" table="EXP_PIECE_EXECUTION_GLOBALE">
+                <key>
+                    <column name="EDITION_ID" scale="0" not-null="true" />
+                </key>
+                <many-to-many column="PERSONNE_EVENEMENT_ID"
+                    class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.PersonneEvenement">
+                </many-to-many>
+            </set>
+
+            <set name="evenementSuiveurs" inverse="false" lazy="true"
+                table="EXP_PIECE_EXECUTION_SUIVI">
+                <key>
+                    <column name="EDITION_ID" scale="0" not-null="true" />
+                </key>
+                <many-to-many column="EVENEMENT_ID"
+                    class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement">
+                </many-to-many>
+            </set>
+
+            <set name="peinePorteuses" inverse="false" lazy="true"
+                table="EXP_PIECE_EXECUTION_PORTEE">
+                <key>
+                    <column name="EDITION_ID" scale="0" not-null="true" />
+                </key>
+                <many-to-many column="PEINE_OU_MESURE_ID"
+                    class="fr.gouv.justice.cassiopee.invariant.peineoumesure.model.PeineOuMesure">
+                </many-to-many>
+            </set>
+        </subclass>
+    </class>
+</hibernate-mapping>

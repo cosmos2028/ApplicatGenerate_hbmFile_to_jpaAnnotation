@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class 
+    name="fr.gouv.justice.cassiopee.processus.ech.model.AffaireHistoriqueIdj"
+    table="ECH_AFFAIRE_HISTORIQUE_IDJ">
+        
+        <id name="historiqueIdjId" type="java.lang.Long">
+            <column name="ECH_AFFAIRE_HISTORIQUE_IDJ_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">ECH_AFFAIRE_HISTORIQUE_IDJ_SEQ</param>
+            </generator>
+        </id>
+        
+        <!--  PROPERTY -->
+        <property name="typeTraitementIdj" type="java.lang.String">
+            <column name="TYPE_TRAITEMENT_IDJ" length="30" />
+        </property>
+                
+        <property name="dateTraitement" type="java.util.Date">
+            <column name="DATE_TRAITEMENT" length="7" />
+        </property>
+        
+        <property name="nombreTraite" type="java.lang.Long">
+            <column name="NOMBRE_TRAITE" />
+        </property>
+        
+        <property name="codeMessageErreur" type="java.lang.String">
+            <column name="CODE_MESSAGE_ERREUR" length="40" />
+        </property>
+        
+        <property name="texteMessageErreur" type="java.lang.String">
+            <column name="TEXE_MESSAGE_ERREUR" length="400" />
+        </property>       
+        
+        <property name="stockIdjErreur" type="java.sql.Clob">
+            <column name="STOCK_IDJ_ERREUR" />
+        </property>
+
+        <property name="nombreDeRejeu" type="java.lang.Long">
+            <column name="NOMBRE_DE_REJEU" />
+        </property>        
+            
+    </class>
+</hibernate-mapping>

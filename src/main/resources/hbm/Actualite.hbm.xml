@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class
+        name="fr.gouv.justice.cassiopee.administration.parametrage.model.Actualite"
+        table="PAR_ACTUALITE" lazy="false" schema="SCH_ACTUALITE" catalog="CAT_ACTUALITE">
+
+        <!-- Identifiant unique de l'actualité -->
+        <id name="id" type="java.lang.Long">
+            <column name="ACTUALITE_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAR_ACTUALITE_SEQ</param>
+            </generator>
+        </id>
+
+        <!-- Resume de l'actualité -->
+        <property name="titre" type="string">
+            <column name="TITRE" length="100" />
+        </property>
+
+        <!-- Contenu de l'actualité -->
+        <property name="texte" type="string">
+            <column name="TEXTE" length="700" />
+        </property>
+
+        <!-- Date de début de diffusion de l'actualité -->
+        <property name="dateDebut" type="java.sql.Timestamp">
+            <column name="DATE_DEBUT" not-null="true" />
+        </property>
+
+        <!-- Date de fin de diffusion de l'actualité -->
+        <property name="dateFin" type="java.sql.Timestamp">
+            <column name="DATE_FIN" />
+        </property>
+
+        <!-- Indique si c'est une actualité de type 'flash' -->
+        <property name="flash" type="boolean">
+            <column name="FLASH" precision="1" scale="0" />
+        </property>
+
+        <!-- Le nombre de repetition de l'actu dans la barre en bas de l'ecran
+        dans le cadre d'une actualité flash -->
+        <property name="nombreRepetition" type="integer">
+            <column name="NOMBRE_REPETITION" precision="1" scale="0" />
+        </property>
+
+        <!-- Titre du document liee si il existe -->
+        <property name="documentLieTitre" type="string">
+            <column name="DOC_LIE_TITRE" length="100" />
+        </property>
+
+        <!-- URL du document liee si il existe -->
+        <property name="documentLieUrl" type="string">
+            <column name="DOC_LIE_URL" length="200" />
+        </property>
+
+    </class>
+
+
+</hibernate-mapping>

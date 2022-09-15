@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class table="SPK_RETOUR_SPARK"
+		name="fr.gouv.justice.cassiopee.invariant.affaire.model.RetourSpark"
+		lazy="false">
+
+		<!-- PRIMARY KEY -->
+		<id name="idAffaire" column="AFFAIRE_ID" type="java.lang.Long">
+
+		</id>
+
+		<property name="idjustice" type="string">
+			<column name="IDENTIFIANT_JUSTICE" length="255" />
+		</property>
+
+		<!-- PROPERTY -->
+		<property name="codeRetourSpark" type="int">
+			<column name="CODE_RETOUR_SPARK" length="1" />
+		</property>
+		<property name="dateModification" type="date">
+			<column name="DATE_MODIFICATION" />
+		</property>
+		<property name="numeroParquet" type="string">
+			<column name="NUMERO_PARQUET" length="255" />
+		</property>
+		<property name="codeTgi" type="string">
+			<column name="CODE_TGI" length="255" />
+		</property>
+
+	</class>
+</hibernate-mapping>

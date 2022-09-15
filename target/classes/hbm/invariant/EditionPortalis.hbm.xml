@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class
+        name="fr.gouv.justice.cassiopee.invariant.edition.model.EditionPortalis" table="EDN_EDITION_PORTALIS" >
+
+        <id name="editionId" type="java.lang.Long" column="EDITION_ID">
+            <generator class="assigned" />
+        </id>
+
+        <property name="idArchimed" type="java.lang.Long" column="ID_ARCHIMED" />
+        
+        <property name="etat" type="java.lang.String" column="ETAT" />
+        
+        <property name="instance" type="java.lang.String" column="INSTANCE_SERVER" />
+        
+        <property name="rapportMessageErreur" type="java.lang.String" column="RAPPORT_MESSAGE_ERREUR" />
+
+    </class>
+</hibernate-mapping>

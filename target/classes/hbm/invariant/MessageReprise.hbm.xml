@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <class
+        name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageReprise"
+        table="TDR_MESSAGE_REPRISE">
+        <id name="id" type="java.lang.Long">
+            <column name="MESSAGE_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">TDR_MESSAGE_REPRISE_SEQ</param>
+            </generator>
+        </id>
+
+        <discriminator column="DISC_TYPE_OBJET" type="string"
+            not-null="true" />
+
+        <property name="codeMessage"
+            type="java.lang.String">
+            <column name="CODE_MESSAGE" length="8" not-null="true" />
+        </property>
+
+        <property name="messageBloquant"
+            type="boolean">
+            <column name="IND_MESSAGE_BLOQUANT" length="1"  not-null="true" />
+        </property>
+
+        <property name="applicationOrigine"
+            type="java.lang.String">
+            <column name="APPLICATION_ORIGINE" length="50" not-null="false" />
+        </property>
+
+        <property name="tableOrigine"
+            type="java.lang.String">
+            <column name="TABLE_ORIGINE" length="32" not-null="false" />
+        </property>
+
+        <property name="nomDonneeOrigine"
+            type="java.lang.String">
+            <column name="NOM_DONNEE_ORIGINE" length="32" not-null="false" />
+        </property>
+
+        <property name="valeurDonneeOrigine"
+            type="java.lang.String">
+            <column name="VALEUR_DONNEE_ORIGINE" length="400" not-null="false" />
+        </property>
+
+        <property name="attributConcerne"
+            type="java.lang.String">
+            <column name="ATTRIBUT_CONCERNE" length="32" not-null="false" />
+        </property>
+
+        <property name="libelle"
+            type="java.lang.String">
+            <column name="LIBELLE" length="4000" not-null="true" />
+        </property>
+
+        <subclass discriminator-value="AFF"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseAffaire">
+            <many-to-one name="affaire" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+                <column name="AFFAIRE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PER"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageReprisePersonne">
+            <many-to-one name="personne" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.personne.model.Personne">
+                <column name="PERSONNE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="EVT"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseEvenement">
+            <many-to-one name="evenement" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement">
+                <column name="EVENEMENT_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="INF"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseInfraction">
+            <many-to-one name="infraction" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.infraction.model.Infraction">
+                <column name="INFRACTION_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PEV"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageReprisePersonneEvenement">
+            <many-to-one name="personneEvenement" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.personneevenement.model.PersonneEvenement">
+                <column name="PERSONNE_EVENEMENT_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PEM"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageReprisePeineOuMesure">
+            <many-to-one name="peineOuMesure" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.peineoumesure.model.PeineOuMesure">
+                <column name="PEINE_OU_MESURE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="INT"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseActeurInterne">
+            <many-to-one name="acteurInterne" outer-join="false"
+                class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne">
+                <column name="ACTEUR_INTERNE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="EXT"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseActeurExterne">
+            <many-to-one name="acteurExterne" outer-join="false"
+                class="fr.gouv.justice.cassiopee.administration.acteur.externe.model.ActeurExterne">
+                <column name="ACTEUR_EXTERNE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="AUD"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseAudience">
+            <many-to-one name="audience" outer-join="false"
+                class="fr.gouv.justice.cassiopee.service.audience.model.Audience">
+                <column name="AUDIENCE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="TES"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseElementStructure">
+            <many-to-one name="elementStructure" outer-join="false"
+                class="fr.gouv.justice.cassiopee.referentiel.structure.model.ElementStructure">
+                <column name="CODE_ELEMENT_STRUCTURE" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="PER_TIT"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseTitrePaiement">
+            <many-to-one name="titrePaiement" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.personne.model.TitrePaiement">
+                <column name="TITRE_PAIEMENT_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="ADM_SRV"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseService">
+            <many-to-one name="service" outer-join="false"
+                class="fr.gouv.justice.cassiopee.administration.structure.model.Service">
+                <column name="SERVICE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="DIE"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseDispositifExterieur">
+            <many-to-one name="dispositifExterieur" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.exterieur.model.DispositifExterieur">
+                <column name="DISPOSITIF_EXTERIEUR_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+
+        <subclass discriminator-value="SCE"
+            name="fr.gouv.justice.cassiopee.processus.tdr.model.MessageRepriseDepot">
+            <many-to-one name="depot" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.scelle.model.Depot">
+                <column name="DEPOT_ID" scale="0" />
+            </many-to-one>
+            <many-to-one name="affaire" outer-join="false"
+                class="fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire">
+                <column name="AFFAIRE_ID" scale="0" />
+            </many-to-one>
+        </subclass>
+    </class>
+</hibernate-mapping>

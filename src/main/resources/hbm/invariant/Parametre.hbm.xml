@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="TEC_PARAMETRE"
+        name="fr.gouv.justice.cassiopee.processus.traitementtransverse.model.Parametre" lazy="false">
+        
+        <!-- PRIMARY KEY -->
+        <id name="code" column="CODE" type="java.lang.String" />
+        
+        <!-- PROPERTY -->
+        
+        <property name="nombre" type="java.lang.Long">
+            <column name="NOMBRE" not-null="false" />
+        </property>
+        
+        <property name="texte" type="java.lang.String">
+            <column name="TEXTE" not-null="false" />
+        </property>
+        
+        <property name="dateMaj" type="java.sql.Date">
+            <column name="DATE_MAJ" not-null="false" />
+        </property>
+                  
+    </class>
+</hibernate-mapping>

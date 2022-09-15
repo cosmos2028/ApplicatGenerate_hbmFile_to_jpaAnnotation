@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass discriminator-value="PENALE_ABSTRACT"
+              name   = "fr.gouv.justice.cassiopee.invariant.affaire.model.AffairePenale"
+              extends= "fr.gouv.justice.cassiopee.invariant.affaire.model.Affaire"
+              lazy="false">
+
+        <!-- PROPERTY -->
+
+        <property name="faitsLieu"  type="java.lang.String">
+            <column name="PENALE_FAITS_LIEU" length="250" />
+        </property>
+
+        <property name="delaiAchevement" type="java.lang.Byte">
+            <column name="PENALE_DELAI_ACHEVEMENT" precision="2" scale="0" />
+        </property>
+
+        <property name="indicateurJirs" type="boolean">
+            <column name="PENALE_INDICATEUR_JIRS" precision="1" scale="0" />
+        </property>
+
+        <property name="titreDecouvertCommentaire" type="java.lang.String">
+            <column name="PENALE_TIT_DEC_COMMENTAIRE" length="300" />
+        </property>
+
+        <property name="idProcedure" type="java.lang.String">
+            <column name="PENALE_ID_PROCEDURE" length="18" />
+        </property>
+
+        <property name="indexeInfractions" type="java.lang.Integer">
+            <column name="INDEXE_INFRACTIONS" />
+        </property>
+
+        <property name="recherche" type="boolean">
+            <column name="PENALE_RECHERCHE" precision="1" scale="0" />
+        </property>
+
+        <property name="poleInstruction" type="boolean">
+            <column name="PENALE_POLE_INSTRUCTION" precision="1" scale="0" />
+        </property>
+
+        <property name="affaireEurojust" type="boolean">
+            <column name="INDIC_AFFAIRE_EUROJUST" precision="1" scale="0" />
+        </property>
+
+        <property name="alerteDossier" type="java.lang.String" insert="false" update="false">
+            <column name="ALERTE_AFFAIRE" />
+        </property>
+
+        <!-- COMPONENT  -->
+        <component
+            name="faitsDateDebut"
+            class="fr.gouv.justice.cassiopee.commons.metier.model.DateIncompleteAvecPrefixe">
+            
+            <many-to-one name="prefixeDate" 
+                     class="fr.gouv.justice.cassiopee.referentiel.codification.model.PrefixeDate"
+                     outer-join="false">
+            <column name="PENALE_FAITS_DATE_DEBUT_PREFIX" />
+           </many-to-one>
+        
+            <property
+                name="averageDate"
+                type="java.util.Date">
+                <column
+                    name="PENALE_FAITS_DATE_DEBUT"
+                    length="7" />
+            </property>
+            <property
+                name="precision"
+                type="int">
+                <column
+                    name="PENALE_FAITS_DATE_DEBUT_PRECIS"
+                    precision="1"
+                    scale="0" />
+            </property>
+        </component>
+        
+        <component
+            name="faitsDateFin"
+            class="fr.gouv.justice.cassiopee.commons.metier.model.DateIncompleteAvecPrefixe">
+            
+            <many-to-one name="prefixeDate" 
+                     class="fr.gouv.justice.cassiopee.referentiel.codification.model.PrefixeDate"
+                     outer-join="false">
+            <column name="PENALE_FAITS_DATE_FIN_PREFIXE" />
+            </many-to-one>
+        
+            <property
+                name="averageDate"
+                type="java.util.Date">
+                <column
+                    name="PENALE_FAITS_DATE_FIN"
+                    length="7" />
+            </property>
+            <property
+                name="precision"
+                type="int">
+                <column
+                    name="PENALE_FAITS_DATE_FIN_PRECISIO"
+                    precision="1"
+                    scale="0" />
+            </property>
+        </component>
+        
+        
+        
+        
+        <!-- ASSOCIATIONS -->
+        
+        
+          
+          
+        <many-to-one name="typeContentieux" 
+                     class="fr.gouv.justice.cassiopee.invariant.affaire.model.TypeContentieux"
+                     outer-join="false">
+            <column name="PENALE_CODE_TYPE_CONTENTIEUX" />
+        </many-to-one>
+        
+         
+        <many-to-one name="typeInfraction"
+                     class="fr.gouv.justice.cassiopee.referentiel.infraction.codification.model.MnemoTypeInfraction"
+                     outer-join="false">
+            <column name="PENALE_CODE_TYPE_INFRACTION" />
+        </many-to-one> 
+         
+        <many-to-one name="faitsCommune"
+                     class="fr.gouv.justice.cassiopee.referentiel.territoire.model.Commune"
+                     outer-join="false">
+            <column name="PENALE_FAITS_CODE_COMMUNE" />
+        </many-to-one> 
+         
+         
+         
+         <!-- ASSOCIATIONS SET -->
+        
+        <set name="infractionsMetier" inverse="true">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.invariant.infraction.model.InfractionMetier" />
+        </set> 
+         
+        <set name="comptes" inverse="true" order-by="RANG ASC" cascade="all,delete-orphan">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.invariant.affaire.model.Compte" />
+        </set>
+        
+        <set name="vehicules" 
+             inverse="true"
+             order-by="RANG DESC"
+             cascade="all,delete-orphan">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.invariant.affaire.model.Vehicule" />
+        </set>
+        
+        <set name="titresDePaiement" inverse="true" order-by="DATE_EMISSION DESC" cascade="all,delete-orphan">
+            <key>
+                <column name="AFFAIRE_ID" scale="0" not-null="true"/>
+            </key>
+            <one-to-many class="fr.gouv.justice.cassiopee.invariant.personne.model.TitrePaiement" />
+        </set>
+        
+    </subclass>
+</hibernate-mapping>

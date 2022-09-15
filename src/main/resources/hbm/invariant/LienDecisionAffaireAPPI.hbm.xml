@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_LIEN_DEC_AFF_APPI"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.LienDecisionAffaireAppi" lazy="false">
+        
+        <id name="id" column="ID_LIEN" type="java.lang.Long">
+            <generator class="sequence">
+                <param name="sequence">ECH_LIEN_DEC_AFF_APPI_SEQ</param>
+            </generator>
+        </id>
+        
+        <property name="numeroParquet" type="java.lang.Long">
+            <column name="NUM_PARQUET" />
+        </property>
+
+        <property name="numeroIDJ" type="string">
+            <column name="NUM_IDJ" />
+        </property>
+        
+        <property name="idPersonne" type="java.lang.Long">
+            <column name="ID_PERSONNE" />
+        </property>
+        
+        <property name="affaireModifie" type="boolean">
+            <column name="AFFAIRE_MAJ" />
+        </property>
+
+        <many-to-one name="juridiction" class="fr.gouv.justice.cassiopee.administration.structure.model.Tgi" outer-join="false">
+            <column name="JURIDICTION" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="decisionAppi"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.DecisionAppi"
+            outer-join="false" not-null="true" >
+            <column name="ID_DECISION" scale="0" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

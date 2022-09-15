@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_ETAT"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.Etat" lazy="false">
+        
+        <!-- PRIMARY KEY -->
+        <id name="id" column="ETAT_ID" type="java.lang.Long">
+            <generator class="sequence">
+                <param name="sequence">ECH_ETAT_SEQ</param>
+            </generator>
+        </id>
+        
+        <!-- PROPERTY -->
+        <property name="dateHeure" type="java.sql.Timestamp">
+            <column name="ETAT_DATE" not-null="true" />
+        </property>
+        
+        <property name="reponsePartenaire" type="java.lang.Character">
+            <column name="REPONSE_PARTENAIRE" not-null="false" />
+        </property>
+
+        <property name="texteLibre" type="string">
+            <column name="TEXTE_LIBRE" not-null="false" />
+        </property>
+
+        <property name="retourMagistrat" type="java.lang.Boolean">
+            <column name="RETOUR_MAGISTRAT" not-null="false" />
+        </property>
+
+         <!-- ASSOCIATIONS  -->
+        <many-to-one name="responsable" outer-join="false"
+            class="fr.gouv.justice.cassiopee.administration.acteur.interne.model.ActeurInterne" not-null="false">
+            <column name="ACTEUR_INTERNE_ID" />
+        </many-to-one>
+        
+        <many-to-one name="responsableService" outer-join="false"
+            class="fr.gouv.justice.cassiopee.administration.structure.model.Service" not-null="false">
+            <column name="SERVICE_ID" />
+        </many-to-one>
+       
+        <many-to-one name="demande"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.Demande"
+            outer-join="false" not-null="true" >
+            <column name="DEMANDE_ID" scale="0" />
+        </many-to-one>  
+        
+        <many-to-one name="codeTypeEtat"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.TypeEtat"
+            outer-join="false" not-null="true" >
+            <column name="CODE_ETAT" scale="0" />
+        </many-to-one>  
+        
+        <set name="messages" inverse="true" cascade="delete"
+            table="ECH_MESSAGE_ETAT" order-by="MESSAGE_ID asc">
+            <key>
+                <column name="ETAT_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.ech.model.MessageEtat" />
+        </set>
+                  
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.EchMajFait" table="ECH_PNGN_MAJ_FAIT">
+        <id name="id" type="java.lang.Long">
+            <column name="ECH_MAJ_FAIT_ID" scale="0" />
+            <generator class="sequence" >
+              <param name="sequence">ECH_MAJ_FAIT_SEQ</param>
+            </generator>
+        </id>    
+        <many-to-one name="echMajAffaire" outer-join="false"
+            class="fr.gouv.justice.cassiopee.processus.ech.model.EchMajAffaire" insert="false" update="false">
+            <column name="ECH_MAJ_AFFAIRE_ID" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="idFait" type="java.lang.String">
+            <column name="ID_FAIT" />
+        </property>        
+        <property name="requalif" type="java.lang.String">
+            <column name="REQUALIF" />
+        </property>
+        <property name="natinfAv" type="java.lang.String">
+            <column name="NATINF_AV" />
+        </property>
+        <property name="qsAv" type="java.lang.String">
+            <column name="QS_AV" />
+        </property>
+        <property name="perioAffDebutDateForAv" type="java.lang.String">
+            <column name="PERIO_AFF_DEBUT_DATE_FOR_AV" />
+        </property>
+        <property name="perioAffDebutHeureForAv" type="java.lang.String">
+            <column name="PERIO_AFF_DEBUT_HEURE_FOR_AV" />
+        </property>
+        <property name="perioAffFinDateForAv" type="java.lang.String">
+            <column name="PERIO_AFF_FIN_DATE_FOR_AV" />
+        </property>
+        <property name="perioAffFinHeureForAv" type="java.lang.String">
+            <column name="PERIO_AFF_FIN_HEURE_FOR_AV" />
+        </property>
+        <property name="informationPv" type="java.lang.String">
+            <column name="INFORMATION_PV" />
+        </property>
+        <property name="inseeCommuneFait" type="java.lang.String">
+            <column name="INSEE_COMMUNE_FAIT" />
+        </property>
+        <property name="lieuFait" type="java.lang.String">
+            <column name="LIEU_FAIT" />
+        </property>
+        <property name="natinfAp" type="java.lang.String">
+            <column name="NATINF_AP" />
+        </property>
+        <property name="qsAp" type="java.lang.String">
+            <column name="QS_AP" />
+        </property>        
+        <property name="perioAffDebutDateForAp" type="java.lang.String">
+            <column name="PERIO_AFF_DEBUT_DATE_FOR_AP" />
+        </property>
+        <property name="perioAffDebutHeureForAp" type="java.lang.String">
+            <column name="PERIO_AFF_DEBUT_HEURE_FOR_AP" />
+        </property>
+        <property name="perioAffFinDateForAp" type="java.lang.String">
+            <column name="PERIO_AFF_FIN_DATE_FOR_AP" />
+        </property>
+        <property name="perioAffFinHeureForAp" type="java.lang.String">
+            <column name="PERIO_AFF_FIN_HEURE_FOR_AP" />
+        </property>
+        <property name="idFaitAp" type="java.lang.String">
+            <column name="ID_FAIT_AP" />
+        </property>        
+        
+        <set name="lienPersonneFait" lazy="true" cascade="all">
+            <key>
+                <column name="ECH_MAJ_FAIT_ID" />
+            </key>
+            <one-to-many
+                class="fr.gouv.justice.cassiopee.processus.ech.model.EchMajLienPerFait" />
+        </set>            
+
+    </class>
+</hibernate-mapping>

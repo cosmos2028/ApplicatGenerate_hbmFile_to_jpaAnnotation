@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="PQT_HISTO_FIN_INSTRUCTION"
+        name="fr.gouv.justice.cassiopee.processus.parquet.model.HistorisationFinInstruction">
+        <id name="id" type="java.lang.Long">
+            <column name="PQT_HISTO_ID" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PQT_HISTO_FIN_INSTRUCTION_SEQ</param>
+            </generator>
+        </id>
+
+        <property name="dateFinInstruction" type="java.util.Date">
+            <column name="DATE_HISTO_FIN_INSTRUCTION" length="7" />
+        </property>
+        
+        <many-to-one name="identificationParquet"
+            class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet"
+            outer-join="false">
+            <column name="IDENTIFICATON_PARQUET_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

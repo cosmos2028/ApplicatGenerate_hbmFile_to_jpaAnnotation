@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class
+    name="fr.gouv.justice.cassiopee.processus.audiencement.model.EntreeAgenda"
+    table="AGC_ENTREE_AGENDA">
+
+    <id name="id" type="java.lang.Long">
+      <column name="ENTREE_AGENDA_ID" scale="0" />
+      <generator class="sequence">
+        <param name="sequence">AGC_ENTREE_AGENDA_SEQ</param>
+      </generator>
+    </id>
+
+    <property name="objet" type="string">
+      <column name="OBJET" />
+    </property>
+
+    <property name="commentaire" type="string">
+      <column name="COMMENTAIRE" />
+    </property>
+
+    <property name="typeEntreeAgendaCode" type="string">
+      <column name="TYPE_ENTREE_AGENDA" />
+    </property>
+    
+    <property name="lieu" type="string">
+      <column name="LIEU" />
+    </property>
+    
+     <property name="evenementTypeLibelle" type="string">
+      <column name="LIBELLE_EVENEMENT_TYPE" />
+    </property>
+        
+    <component name="dateRange"
+      class="fr.gouv.justice.cassiopee.common.util.DateRange">
+      <property name="debut" type="java.sql.Timestamp">
+        <column name="DATE_RANGE_DEBUT" />
+      </property>
+      <property name="fin" type="java.sql.Timestamp">
+        <column name="DATE_RANGE_FIN" />
+      </property>
+    </component>
+
+
+    <many-to-one name="service"
+      class="fr.gouv.justice.cassiopee.administration.structure.model.Service"
+      outer-join="false">
+      <column name="ADM_SERVICE_ID" />
+    </many-to-one>
+
+    <many-to-one name="evenement"
+      class="fr.gouv.justice.cassiopee.invariant.evenement.model.Evenement"
+      outer-join="false">
+      <column name="EVT_EVENEMENT_ID" />
+    </many-to-one>
+
+    <many-to-one name="identificationParquet"
+        class="fr.gouv.justice.cassiopee.processus.parquet.model.IdentificationParquet" 
+        outer-join="false">
+        <column name="IDENTIFICATION_PARQUET_ID" />
+    </many-to-one>
+
+  </class>
+</hibernate-mapping>

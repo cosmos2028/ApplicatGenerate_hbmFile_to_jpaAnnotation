@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="fr.gouv.justice.cassiopee.invariant.affaire.model.EtablissementBancaire" table="AFF_ETABLISSEMENT_BANCAIRE" lazy="false">
+        <id name="code" type="string">
+            <column name="CODE" />
+            <generator class="assigned" />
+        </id>
+        
+        <property name="libelle" type="java.lang.String">
+            <column name="LIBELLE" length="250" />
+        </property>
+        
+        <property name="dateApparition" type="java.sql.Timestamp">
+            <column name="DATE_APPARITION" length="7" />
+        </property>
+        
+        <property name="dateFermeture" type="java.sql.Timestamp">
+            <column name="DATE_FERMETURE" length="7" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

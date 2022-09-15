@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <subclass discriminator-value="EXPORT" 
+              name   = "fr.gouv.justice.cassiopee.processus.ech.model.DemandeExportRomeo" 
+              extends= "fr.gouv.justice.cassiopee.processus.ech.model.DemandeExport"
+              lazy   = "false">  
+              
+        
+        
+    </subclass>
+</hibernate-mapping>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+    <class name="fr.gouv.justice.cassiopee.processus.ech.model.EchEb1SrdrRetour" table="ECH_EB1_SRDR_RETOUR" lazy="false">
+        
+        <composite-id name="id" class="fr.gouv.justice.cassiopee.processus.ech.model.EchEb1SrdrRetourId">
+            <key-property name="idReponse" type="java.lang.Long" >
+                <column name="ID_REPONSE" scale="0" />
+            </key-property>
+            <key-property name="rangRetour" type="java.lang.Long" >
+                <column name="RANG_RETOUR" />
+            </key-property>
+        </composite-id>
+       
+        <property name="emetteurElemenStructure" type="java.lang.String">
+            <column name="EMETTEUR_ELE_STR" />
+        </property>      
+          <property name="emetteurService" type="java.lang.String">
+            <column name="EMETTEUR_SERVICE" />
+        </property>   
+          <property name="refMsgIdAffaire" type="java.lang.String">
+            <column name="REFMSG_ID_AFFAIRE" />
+        </property>   
+          <property name="refMsgIdPersonne" type="java.lang.String">
+            <column name="REFMSG_ID_PERSONNE" />
+        </property> 
+        <property name="refMsgRefInterneEmetteur" type="java.lang.String">
+            <column name="REFMSG_REF_INTERNE_EMETTEUR" />
+        </property> 
+        <property name="nomfamille" type="java.lang.String">
+            <column name="NOM_FAMILLE" />
+        </property> 
+        <property name="nomUsage" type="java.lang.String">
+            <column name="NOM_USAGE" />
+        </property> 
+        <property name="prenom1" type="java.lang.String">
+            <column name="PRENOM1" />
+        </property> 
+        <property name="prenom2" type="java.lang.String">
+            <column name="PRENOM2" />
+        </property> 
+        <property name="prenom3" type="java.lang.String">
+            <column name="PRENOM3" />
+        </property> 
+        <property name="dateNaissance" type="java.lang.String">
+            <column name="DATE_NAISSANCE" />
+        </property> 
+        <property name="franceCodeCommune" type="java.lang.String">
+            <column name="FRANCE_CODE_COMMUNE" />
+        </property>     
+        <property name="etrangerCodePays" type="java.lang.String">
+            <column name="ETRANGER_CODE_PAYS" />
+        </property>
+        <property name="etrangerLibelleCommune" type="java.lang.String">
+            <column name="ETRANGER_LIBELLE_COMMUNE" />
+        </property> 
+        <property name="sexe" type="java.lang.String">
+            <column name="SEXE" />
+        </property> 
+        <property name="nomPere" type="java.lang.String">
+            <column name="NOM_PERE" />
+        </property> 
+        <property name="prenomPere" type="java.lang.String">
+            <column name="PRENOM_PERE" />
+        </property>     
+        <property name="nomMere" type="java.lang.String">
+            <column name="NOM_MERE" />
+        </property> 
+        <property name="prenomMere" type="java.lang.String">
+            <column name="PRENOM_MERE" />
+        </property> 
+        <property name="motifDemande" type="java.lang.String">
+            <column name="MOTIF_DEMANDE" />
+        </property> 
+        <property name="dateRetourSouhait" type="java.util.Date">
+              <column name="DATE_RETOUR_SOUHAIT" />
+        </property>
+        <property name="typeReponseNCJ" type="java.lang.String">
+            <column name="TYPE_REPONSE_NCJ" />
+        </property>   
+        <property name="dateAudience" type="java.util.Date">
+              <column name="DATE_AUDIENCE" />
+        </property>
+        <property name="dateRetourNCJ" type="java.util.Date">
+              <column name="DATE_RETOUR_NCJ" />
+        </property>
+        <property name="communicationNCJ" type="java.lang.String">
+            <column name="COMMUNICATION_NCJ" />
+        </property>   
+          <property name="actif" type="boolean">
+            <column name="ACTIF" />
+        </property> 
+        <property name="evenementId" type="java.lang.Long">
+            <column name="EVENEMENT_ID" />
+        </property> 
+        
+        <!-- 
+        <property name="dateReponse" type="java.lang.Long">
+            <column name="DATE_REPONSE" />
+        </property> 
+        <property name="typeReponseNCJ" type="java.lang.Long">
+            <column name="TYPE_REPONSE_NCJ" />
+        </property> 
+        
+         -->  
+    </class>
+</hibernate-mapping>

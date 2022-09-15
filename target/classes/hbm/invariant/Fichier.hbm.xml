@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class table="ECH_FICHIER"
+        name="fr.gouv.justice.cassiopee.processus.ech.model.Fichier" lazy="false">
+        
+        <!-- PRIMARY KEY -->
+        <id name="id" column="ECH_FICHIER_ID" type="java.lang.Long">
+            <generator class="sequence">
+                <param name="sequence">ECH_FICHIER_SEQ</param>
+            </generator>
+        </id>
+    
+        <!-- PROPERTY -->
+        <property name="nomFichier" type="java.lang.String">
+            <column name="NOM_FICHIER" not-null="true" />
+        </property>
+        
+        <property name="dateCreation" type="java.sql.Timestamp">
+            <column name="DATE_CREATION" not-null="true" />
+        </property>
+        
+        <property name="contenu" type="java.sql.Clob">
+            <column name="CONTENU" not-null="false" />
+        </property>
+        
+        <property name="demandeId" type="java.lang.Long">
+            <column name="ECH_DEMANDE_ID" not-null="true" />
+        </property>
+        
+    </class>
+</hibernate-mapping>
